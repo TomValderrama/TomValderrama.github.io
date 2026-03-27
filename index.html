@@ -68,7 +68,14 @@
     .hero {
       padding: 80px 0 60px;
       border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
     }
+    #hero-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    .hero .container { position: relative; z-index: 1; }
     .hero-tag {
       font-family: 'DM Mono', monospace;
       font-size: 11px; font-weight: 500;
@@ -117,6 +124,118 @@
       font-size: 22px; font-weight: 700;
       color: var(--bright); margin-bottom: 28px;
     }
+
+    /* ── SHOWCASE ── */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 700px) { .showcase-grid { grid-template-columns: 1fr; } }
+    .showcase-full { grid-column: 1 / -1; }
+
+    .showcase-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color .15s;
+    }
+    .showcase-card:hover { border-color: var(--blue); }
+    .showcase-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; font-weight: 600;
+      color: var(--blue-lt); text-transform: uppercase;
+      letter-spacing: .5px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .showcase-caption {
+      font-size: 12px; color: var(--subtle);
+      padding: 10px 16px 14px;
+      border-top: 1px solid var(--border);
+      line-height: 1.55;
+    }
+    .showcase-caption strong { color: var(--blue-lt); font-weight: 500; }
+
+    /* particle demo canvas */
+    .demo-canvas {
+      width: 100%; height: 240px;
+      display: block; background: var(--bg);
+    }
+
+    /* before/after compare */
+    .compare-wrap {
+      position: relative; height: 240px;
+      overflow: hidden; cursor: col-resize;
+      user-select: none; background: var(--bg);
+    }
+    .compare-wrap .cmp-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; pointer-events: none;
+      display: none;
+    }
+    .compare-wrap .cmp-img.loaded { display: block; }
+    .compare-wrap .cmp-b { clip-path: inset(0 0 0 50%); }
+    .compare-divider {
+      position: absolute; top: 0; bottom: 0;
+      left: 50%; width: 2px;
+      background: rgba(255,255,255,.75);
+      transform: translateX(-50%);
+      pointer-events: none; z-index: 10;
+      display: none;
+    }
+    .compare-knob {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 34px; height: 34px; border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,.5);
+      display: none; align-items: center; justify-content: center;
+      z-index: 11; pointer-events: none;
+      font-size: 12px; color: #222; font-weight: 700; letter-spacing: -1px;
+    }
+    .compare-divider.active,
+    .compare-knob.active { display: flex; }
+
+    /* placeholder */
+    .img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+      background: var(--bg);
+    }
+    .img-placeholder .ph-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: var(--subtle);
+      border: 1px dashed var(--muted);
+      padding: 3px 10px; border-radius: 4px;
+    }
+    .img-placeholder .ph-hint {
+      font-size: 11px; color: var(--muted);
+      text-align: center; padding: 0 24px;
+      line-height: 1.5;
+    }
+
+    /* figure gallery */
+    .fig-gallery {
+      display: flex; gap: 4px; padding: 8px;
+      height: 240px;
+    }
+    .fig-item {
+      flex: 1; border-radius: 6px;
+      overflow: hidden; background: var(--bg);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .fig-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .fig-item img.loaded { display: block; }
+    .fig-item .img-placeholder { position: absolute; inset: 0; }
 
     /* ── ABOUT ── */
     .about-grid {
@@ -239,6 +358,7 @@
   <div class="inner">
     <span class="nav-name">tomvalderrama.github.io</span>
     <div class="nav-links">
+      <a href="#showcase">visualizaciones</a>
       <a href="#proyectos">proyectos</a>
       <a href="#skills">skills</a>
       <a href="mailto:tomasvalderramap@gmail.com">contacto</a>
@@ -248,6 +368,7 @@
 
 <!-- ── HERO ── -->
 <section class="hero">
+  <canvas id="hero-canvas"></canvas>
   <div class="container">
     <p class="hero-tag">Portafolio</p>
     <h1>Tomás Elías<br><span>Valderrama Platz</span></h1>
@@ -260,6 +381,79 @@
       <a class="btn btn-primary" href="https://www.linkedin.com/in/tomasvalderrama" target="_blank">LinkedIn</a>
       <a class="btn btn-outline" href="https://github.com/TomValderrama" target="_blank">GitHub</a>
       <a class="btn btn-outline" href="mailto:tomasvalderramap@gmail.com">tomasvalderramap@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SHOWCASE ── -->
+<section id="showcase">
+  <div class="container">
+    <p class="section-tag">Visualizaciones</p>
+    <h2 class="section-title">En acción</h2>
+    <div class="showcase-grid">
+
+      <!-- Particle simulation — full width -->
+      <div class="showcase-card showcase-full">
+        <div class="showcase-label">Simulación lagrangiana de partículas — OpenDrift / CROCO-ROMS</div>
+        <canvas id="demo-canvas" class="demo-canvas"></canvas>
+        <p class="showcase-caption">
+          Trayectorias de trazadores lanzados desde distintos puntos del Golfo de Ancud (Tesis de Magíster).
+          Simulaciones con <strong>OpenDrift</strong> sobre campos de velocidad del modelo <strong>CROCO-ROMS</strong>.
+          La visualización de arriba es generativa; las trayectorias reales se graficaron con Matplotlib y animaciones NetCDF.
+        </p>
+      </div>
+
+      <!-- Maps before/after -->
+      <div class="showcase-card">
+        <div class="showcase-label">Generador de mapas — antes / después</div>
+        <div class="compare-wrap" id="mapCompare">
+          <img class="cmp-img cmp-a" src="assets/mapa_antes.jpg" alt="Datos brutos" data-side="a">
+          <img class="cmp-img cmp-b" src="assets/mapa_despues.jpg" alt="Mapa generado" data-side="b">
+          <div class="compare-divider" id="cmpDivider"></div>
+          <div class="compare-knob"   id="cmpKnob">⟺</div>
+          <div class="img-placeholder" id="cmpPlaceholder">
+            <span class="ph-label">assets/mapa_antes.jpg</span>
+            <span class="ph-label">assets/mapa_despues.jpg</span>
+            <p class="ph-hint">Arrastrá para comparar<br>datos brutos vs. mapa generado</p>
+          </div>
+        </div>
+        <p class="showcase-caption">
+          Generador de mapas cartográficos para centros de monitoreo marino: de coordenadas en JSON/KMZ
+          a mapa georreferenciado con equipos (ADCP, anemómetros, boyas) y concesiones acuícolas.
+          Exporta JPG individual o PDF multipágina.
+        </p>
+      </div>
+
+      <!-- Celestial vault — ILLUMINA -->
+      <div class="showcase-card">
+        <div class="showcase-label">Bóveda celeste — ILLUMINA</div>
+        <div class="fig-gallery">
+          <div class="fig-item">
+            <img src="assets/boveda_1.jpg" alt="ILLUMINA — sim 1">
+            <div class="img-placeholder">
+              <span class="ph-label">boveda_1.jpg</span>
+            </div>
+          </div>
+          <div class="fig-item">
+            <img src="assets/boveda_2.jpg" alt="ILLUMINA — sim 2">
+            <div class="img-placeholder">
+              <span class="ph-label">boveda_2.jpg</span>
+            </div>
+          </div>
+          <div class="fig-item">
+            <img src="assets/boveda_3.jpg" alt="ILLUMINA — sim 3">
+            <div class="img-placeholder">
+              <span class="ph-label">boveda_3.jpg</span>
+            </div>
+          </div>
+        </div>
+        <p class="showcase-caption">
+          Simulaciones de transferencia radiativa ILLUMINA para evaluación de contaminación lumínica
+          en el norte de Chile. Benchmark con datos de Hawái (SRTM + VIIRS), validados contra
+          mediciones de sky quality meters en terreno.
+        </p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -338,6 +532,34 @@
         <div class="project-links">
           <a class="project-link" href="/afp/" target="_blank">Ver herramienta</a>
           <a class="project-link" href="https://github.com/TomValderrama/TomValderrama.github.io" target="_blank">Código</a>
+        </div>
+      </div>
+
+      <!-- GENERADOR DE MAPAS -->
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-title">Generador de Mapas de Monitoreo</span>
+          <span class="project-badge badge-code">código</span>
+        </div>
+        <p class="project-desc">
+          Herramienta de escritorio para generar mapas cartográficos de centros de cultivo
+          marino y sus equipos de monitoreo. Integra capas desde archivos KMZ, shapefiles
+          de concesiones y configuración JSON. Auto-descubre equipos (ADCP, anemómetros,
+          correntómetros, boyas) dentro de la carpeta de proyecto. Soporta superposición de
+          datos ERA5 (viento, corrientes) y exportación a JPG o PDF multipágina con layout
+          personalizable. ~1500 líneas de Python con arquitectura de capas.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">Cartopy</span>
+          <span class="tag">KMZ/KML</span>
+          <span class="tag">Shapefile</span>
+          <span class="tag">JSON</span>
+          <span class="tag">PDF</span>
+        </div>
+        <div class="project-links">
+          <a class="project-link" href="https://github.com/TomValderrama/Mapas" target="_blank">Ver repositorio</a>
         </div>
       </div>
 
@@ -469,9 +691,9 @@
         <h3>Python libs</h3>
         <ul class="skill-list">
           <li>pandas · numpy</li>
-          <li>matplotlib</li>
-          <li>geopandas</li>
-          <li>shapely</li>
+          <li>matplotlib · cartopy</li>
+          <li>geopandas · shapely</li>
+          <li>xarray · netCDF4</li>
         </ul>
       </div>
       <div class="skill-group">
@@ -516,6 +738,225 @@
     <p style="margin-top:8px">Tomás Valderrama · Viña del Mar, Chile</p>
   </div>
 </footer>
+
+<script>
+/* ── HERO BACKGROUND — subtle ocean current particles ── */
+(function () {
+  const c = document.getElementById('hero-canvas');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  let W, H, pts = [], t = 0;
+  const N = 180;
+
+  function resize() {
+    W = c.width = c.offsetWidth;
+    H = c.height = c.offsetHeight;
+    pts = [];
+    for (let i = 0; i < N; i++) addPt(true);
+  }
+
+  function addPt(rand) {
+    pts.push({
+      x: Math.random() * W,
+      y: rand ? Math.random() * H : (Math.random() < .5 ? 0 : Math.random() * H),
+      age: rand ? Math.floor(Math.random() * 300) : 0,
+      life: 220 + Math.floor(Math.random() * 200)
+    });
+  }
+
+  function field(x, y) {
+    const s = 0.0028;
+    return {
+      vx: Math.sin(y * s * 1.3 + t * .38) * Math.cos(x * s * .9 + t * .14) * .85,
+      vy: Math.cos(y * s * .95 + t * .27) * Math.sin(x * s * 1.1 + t * .19) * .55
+    };
+  }
+
+  function frame() {
+    ctx.fillStyle = 'rgba(10,12,16,0.07)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.lineWidth = 1;
+
+    for (let i = pts.length - 1; i >= 0; i--) {
+      const p = pts[i];
+      const f = field(p.x, p.y);
+      const nx = p.x + f.vx, ny = p.y + f.vy;
+      const fade = Math.min(p.age / 60, 1) * Math.min((p.life - p.age) / 60, 1);
+
+      ctx.strokeStyle = `rgba(96,165,250,${(fade * 0.45).toFixed(3)})`;
+      ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(nx, ny); ctx.stroke();
+
+      p.x = nx; p.y = ny; p.age++;
+      if (p.age > p.life || p.x < -4 || p.x > W + 4 || p.y < -4 || p.y > H + 4) {
+        pts.splice(i, 1);
+        addPt(false);
+      }
+    }
+    t += 0.0038;
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  frame();
+})();
+
+/* ── SHOWCASE — OpenDrift-style lagrangian trajectories ── */
+(function () {
+  const c = document.getElementById('demo-canvas');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  let W, H, groups = [], t = 0, cycle = 0;
+
+  const COLORS = [
+    '#3b82f6','#06b6d4','#22c55e','#a78bfa',
+    '#f97316','#ec4899','#14b8a6','#eab308',
+    '#f43f5e','#8b5cf6','#84cc16','#fb923c'
+  ];
+  const G = 12, PG = 7, TRAIL = 70, RESET = 480;
+
+  function resize() {
+    W = c.width = c.offsetWidth;
+    H = c.height = c.offsetHeight;
+    init();
+  }
+
+  function init() {
+    t = 0; cycle = 0; groups = [];
+    ctx.fillStyle = '#0a0c10';
+    ctx.fillRect(0, 0, W, H);
+    for (let g = 0; g < G; g++) {
+      const sx = W * (.12 + Math.random() * .25);
+      const sy = H * (.1  + Math.random() * .80);
+      const col = COLORS[g % COLORS.length];
+      const plist = [];
+      for (let p = 0; p < PG; p++) {
+        plist.push({
+          x: sx + (Math.random() - .5) * 18,
+          y: sy + (Math.random() - .5) * 18,
+          hist: []
+        });
+      }
+      groups.push({ plist, col, delay: g * 18 });
+    }
+  }
+
+  function field(x, y) {
+    const s = 0.0042;
+    return {
+      vx: (Math.sin(y * s * 1.6 + t * .55) * Math.cos(x * s * .75 + t * .28) + .18) * 1.3,
+      vy:  Math.cos(y * s * 1.05 + t * .38) * Math.sin(x * s * 1.25 + t * .22) * .9
+    };
+  }
+
+  function frame() {
+    if (cycle >= RESET) { init(); return; }
+
+    ctx.fillStyle = 'rgba(10,12,16,0.18)';
+    ctx.fillRect(0, 0, W, H);
+
+    for (const g of groups) {
+      if (cycle < g.delay) continue;
+      for (const p of g.plist) {
+        const f = field(p.x, p.y);
+        p.x += f.vx; p.y += f.vy;
+        p.hist.push({ x: p.x, y: p.y });
+        if (p.hist.length > TRAIL) p.hist.shift();
+
+        // trail
+        ctx.lineWidth = 1.4;
+        ctx.globalAlpha = 1;
+        for (let i = 1; i < p.hist.length; i++) {
+          ctx.globalAlpha = (i / p.hist.length) * 0.75;
+          ctx.strokeStyle = g.col;
+          ctx.beginPath();
+          ctx.moveTo(p.hist[i - 1].x, p.hist[i - 1].y);
+          ctx.lineTo(p.hist[i].x, p.hist[i].y);
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+
+        // head dot
+        ctx.fillStyle = g.col;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // wrap
+        if (p.x > W + 20) { p.x = -20; p.hist = []; }
+        if (p.x < -20)    { p.x = W + 20; p.hist = []; }
+        if (p.y > H + 20) { p.y = -20; p.hist = []; }
+        if (p.y < -20)    { p.y = H + 20; p.hist = []; }
+      }
+    }
+
+    t += 0.006; cycle++;
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  frame();
+})();
+
+/* ── IMAGE LOAD — show images / activate compare when loaded ── */
+(function () {
+  // Gallery images: show when loaded, hide placeholder
+  document.querySelectorAll('.fig-item img').forEach(img => {
+    img.addEventListener('load', function () {
+      this.classList.add('loaded');
+      const ph = this.nextElementSibling;
+      if (ph) ph.style.display = 'none';
+    });
+  });
+
+  // Compare slider
+  const wrap  = document.getElementById('mapCompare');
+  if (!wrap) return;
+  const imgA  = wrap.querySelector('.cmp-a');
+  const imgB  = wrap.querySelector('.cmp-b');
+  const div   = document.getElementById('cmpDivider');
+  const knob  = document.getElementById('cmpKnob');
+  const ph    = document.getElementById('cmpPlaceholder');
+  let loaded  = { a: false, b: false };
+
+  function tryActivate() {
+    if (!loaded.a || !loaded.b) return;
+    imgA.classList.add('loaded');
+    imgB.classList.add('loaded');
+    div.classList.add('active');
+    knob.classList.add('active');
+    ph.style.display = 'none';
+  }
+
+  imgA.addEventListener('load',  () => { loaded.a = true;  tryActivate(); });
+  imgB.addEventListener('load',  () => { loaded.b = true;  tryActivate(); });
+  imgA.addEventListener('error', () => { loaded.a = false; });
+  imgB.addEventListener('error', () => { loaded.b = false; });
+
+  let dragging = false;
+  function setPos(clientX) {
+    const rect = wrap.getBoundingClientRect();
+    const pct  = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const s    = (pct * 100).toFixed(1) + '%';
+    imgB.style.clipPath = `inset(0 0 0 ${s})`;
+    div.style.left  = s;
+    knob.style.left = s;
+  }
+
+  wrap.addEventListener('mousedown',  e => { if (loaded.a && loaded.b) { dragging = true; setPos(e.clientX); } });
+  document.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
+  document.addEventListener('mouseup',   () => { dragging = false; });
+
+  wrap.addEventListener('touchstart', e => {
+    if (loaded.a && loaded.b) { dragging = true; setPos(e.touches[0].clientX); }
+  });
+  wrap.addEventListener('touchmove', e => {
+    if (dragging) { e.preventDefault(); setPos(e.touches[0].clientX); }
+  }, { passive: false });
+  document.addEventListener('touchend', () => { dragging = false; });
+})();
+</script>
 
 </body>
 </html>

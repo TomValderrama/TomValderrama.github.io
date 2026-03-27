@@ -160,7 +160,7 @@
 
     /* particle demo canvas */
     .demo-canvas {
-      width: 100%; height: 240px;
+      width: 100%; height: 340px;
       display: block; background: var(--bg);
     }
 
@@ -801,44 +801,47 @@
   frame();
 })();
 
-/* ── SHOWCASE — OpenDrift-style lagrangian trajectories ── */
+/* ── SHOWCASE — OpenDrift-style lagrangian trajectories (infinite loop) ── */
 (function () {
   const c = document.getElementById('demo-canvas');
   if (!c) return;
   const ctx = c.getContext('2d');
-  let W, H, groups = [], t = 0, cycle = 0;
+  let W, H, groups = [], t = 0;
 
   const COLORS = [
     '#3b82f6','#06b6d4','#22c55e','#a78bfa',
     '#f97316','#ec4899','#14b8a6','#eab308',
     '#f43f5e','#8b5cf6','#84cc16','#fb923c'
   ];
-  const G = 12, PG = 7, TRAIL = 70, RESET = 480;
+  const G = 12, PG = 7, TRAIL = 100;
+
+  function mkGroup(idx, delay) {
+    const sx = W * (.06 + Math.random() * .32);
+    const sy = H * (.04 + Math.random() * .92);
+    const plist = [];
+    for (let p = 0; p < PG; p++) {
+      plist.push({
+        x: sx + (Math.random() - .5) * 20,
+        y: sy + (Math.random() - .5) * 20,
+        hist: []
+      });
+    }
+    return {
+      plist,
+      col: COLORS[idx % COLORS.length],
+      age: 0,
+      life: 550 + Math.floor(Math.random() * 350),
+      delay: delay || 0
+    };
+  }
 
   function resize() {
     W = c.width = c.offsetWidth;
     H = c.height = c.offsetHeight;
-    init();
-  }
-
-  function init() {
-    t = 0; cycle = 0; groups = [];
+    groups = [];
     ctx.fillStyle = '#0a0c10';
     ctx.fillRect(0, 0, W, H);
-    for (let g = 0; g < G; g++) {
-      const sx = W * (.12 + Math.random() * .25);
-      const sy = H * (.1  + Math.random() * .80);
-      const col = COLORS[g % COLORS.length];
-      const plist = [];
-      for (let p = 0; p < PG; p++) {
-        plist.push({
-          x: sx + (Math.random() - .5) * 18,
-          y: sy + (Math.random() - .5) * 18,
-          hist: []
-        });
-      }
-      groups.push({ plist, col, delay: g * 18 });
-    }
+    for (let g = 0; g < G; g++) groups.push(mkGroup(g, g * 22));
   }
 
   function field(x, y) {
@@ -850,47 +853,50 @@
   }
 
   function frame() {
-    if (cycle >= RESET) { init(); return; }
-
-    ctx.fillStyle = 'rgba(10,12,16,0.18)';
+    /* very low alpha → trails persist a long time */
+    ctx.fillStyle = 'rgba(10,12,16,0.028)';
     ctx.fillRect(0, 0, W, H);
 
-    for (const g of groups) {
-      if (cycle < g.delay) continue;
+    for (let i = 0; i < groups.length; i++) {
+      const g = groups[i];
+      g.age++;
+      if (g.age < g.delay) continue;
+
+      /* smooth fade-out near end of life, then respawn */
+      const fadeOut = Math.min(1, (g.life - g.age) / 80);
+      if (fadeOut <= 0) { groups[i] = mkGroup(i, 0); continue; }
+
+      ctx.lineWidth = 1.4;
       for (const p of g.plist) {
         const f = field(p.x, p.y);
         p.x += f.vx; p.y += f.vy;
         p.hist.push({ x: p.x, y: p.y });
         if (p.hist.length > TRAIL) p.hist.shift();
 
-        // trail
-        ctx.lineWidth = 1.4;
-        ctx.globalAlpha = 1;
-        for (let i = 1; i < p.hist.length; i++) {
-          ctx.globalAlpha = (i / p.hist.length) * 0.75;
+        for (let k = 1; k < p.hist.length; k++) {
+          ctx.globalAlpha = (k / p.hist.length) * 0.78 * fadeOut;
           ctx.strokeStyle = g.col;
           ctx.beginPath();
-          ctx.moveTo(p.hist[i - 1].x, p.hist[i - 1].y);
-          ctx.lineTo(p.hist[i].x, p.hist[i].y);
+          ctx.moveTo(p.hist[k-1].x, p.hist[k-1].y);
+          ctx.lineTo(p.hist[k].x,   p.hist[k].y);
           ctx.stroke();
         }
-        ctx.globalAlpha = 1;
 
-        // head dot
+        ctx.globalAlpha = fadeOut;
         ctx.fillStyle = g.col;
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2.2, 0, Math.PI * 2);
         ctx.fill();
 
-        // wrap
-        if (p.x > W + 20) { p.x = -20; p.hist = []; }
-        if (p.x < -20)    { p.x = W + 20; p.hist = []; }
-        if (p.y > H + 20) { p.y = -20; p.hist = []; }
-        if (p.y < -20)    { p.y = H + 20; p.hist = []; }
+        if (p.x > W+20) { p.x = -20; p.hist = []; }
+        if (p.x < -20)  { p.x = W+20; p.hist = []; }
+        if (p.y > H+20) { p.y = -20;  p.hist = []; }
+        if (p.y < -20)  { p.y = H+20; p.hist = []; }
       }
     }
 
-    t += 0.006; cycle++;
+    ctx.globalAlpha = 1;
+    t += 0.006;
     requestAnimationFrame(frame);
   }
 

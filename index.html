@@ -238,10 +238,58 @@
     .fig-item img.loaded { display: block; }
     .fig-item .img-placeholder { position: absolute; inset: 0; }
 
-    /* Canvas fullscreen */
-    #demo-canvas:-webkit-full-screen { width: 100vw; height: 100vh; background: #0a0c10; }
-    #demo-canvas:-moz-full-screen    { width: 100vw; height: 100vh; background: #0a0c10; }
-    #demo-canvas:fullscreen           { width: 100vw; height: 100vh; background: #0a0c10; }
+    /* Canvas fullscreen — el wrapper lleva canvas + textos */
+    #canvas-fs-info { display: none; }
+
+    #canvas-fs-wrap:-webkit-full-screen,
+    #canvas-fs-wrap:-moz-full-screen,
+    #canvas-fs-wrap:fullscreen {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: #0a0c10;
+      padding: 20px 56px; gap: 16px;
+      width: 100vw; height: 100vh;
+    }
+    #canvas-fs-wrap:fullscreen #demo-canvas,
+    #canvas-fs-wrap:-webkit-full-screen #demo-canvas,
+    #canvas-fs-wrap:-moz-full-screen #demo-canvas {
+      width: 100%; height: auto; max-height: 72vh;
+      flex-shrink: 0;
+    }
+    #canvas-fs-wrap:fullscreen #canvas-fs-info,
+    #canvas-fs-wrap:-webkit-full-screen #canvas-fs-info,
+    #canvas-fs-wrap:-moz-full-screen #canvas-fs-info {
+      display: flex; width: 100%;
+    }
+    /* Mismo layout que el lightbox: fila en landscape, columna en portrait */
+    #canvas-fs-inner {
+      display: flex; flex-direction: row;
+      align-items: flex-start; gap: 24px; width: 100%;
+    }
+    #canvas-fs-caption {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px; color: #9ca3af;
+      line-height: 1.6; flex: 1;
+    }
+    #canvas-fs-side {
+      display: flex; flex-direction: column; gap: 8px;
+      width: 260px; min-width: 200px;
+      padding: 16px; border-radius: 10px;
+      background: #111318; border: 1px solid #1f2937;
+    }
+    #canvas-fs-side-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; font-weight: 600;
+      color: #3b82f6; text-transform: uppercase; letter-spacing: .5px;
+    }
+    #canvas-fs-detail {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px; color: #6b7280; line-height: 1.7;
+    }
+    @media (orientation: portrait) {
+      #canvas-fs-inner { flex-direction: column; }
+      #canvas-fs-side  { width: 100%; min-width: unset; }
+    }
 
     /* ── LIGHTBOX ── */
     #lightbox {
@@ -509,7 +557,18 @@
       <div class="showcase-card showcase-full"
            data-detail="La simulación sigue partículas individuales advectadas por campos de velocidad 3D del modelo oceánico CROCO-ROMS. Se lanzaron trazadores desde múltiples puntos y profundidades (0–250 m) para estudiar el rol del remolino semipermanente del Golfo de Ancud y el forzamiento mareal en el transporte de material. El campo de velocidad cambia en cada paso de tiempo; las partículas responden en tiempo real.">
         <div class="showcase-label">Simulación lagrangiana de partículas — OpenDrift / CROCO-ROMS</div>
-        <canvas id="demo-canvas" class="demo-canvas" style="cursor:zoom-in" title="Click para expandir"></canvas>
+        <div id="canvas-fs-wrap">
+          <canvas id="demo-canvas" class="demo-canvas" style="cursor:zoom-in" title="Click para expandir"></canvas>
+          <div id="canvas-fs-info">
+            <div id="canvas-fs-inner">
+              <p id="canvas-fs-caption"></p>
+              <div id="canvas-fs-side">
+                <span id="canvas-fs-side-title">Detalle técnico</span>
+                <p id="canvas-fs-detail"></p>
+              </div>
+            </div>
+          </div>
+        </div>
         <p class="showcase-caption">
           Trayectorias de trazadores lanzados desde distintos puntos del Golfo de Ancud (Tesis de Magíster).
           Simulaciones con <strong>OpenDrift</strong> sobre campos de velocidad del modelo <strong>CROCO-ROMS</strong>.
@@ -1194,17 +1253,21 @@
     });
   });
 
-  // Canvas de partículas — Fullscreen API para mantener la animación viva
+  // Canvas de partículas — fullscreen sobre el wrapper para incluir textos
   const demoCanvas = document.getElementById('demo-canvas');
-  if (demoCanvas) {
+  const canvasFsWrap = document.getElementById('canvas-fs-wrap');
+  if (demoCanvas && canvasFsWrap) {
+    // Inyectar caption y detail desde el card
+    const card = demoCanvas.closest('.showcase-card');
+    document.getElementById('canvas-fs-caption').innerHTML =
+      (card.querySelector('.showcase-caption') || {}).innerHTML || '';
+    document.getElementById('canvas-fs-detail').textContent =
+      card.dataset.detail || '';
+
     demoCanvas.addEventListener('click', function () {
-      if (this.requestFullscreen)            this.requestFullscreen();
-      else if (this.webkitRequestFullscreen) this.webkitRequestFullscreen();
-      else if (this.mozRequestFullScreen)    this.mozRequestFullScreen();
-    });
-    // Salir con ESC ya lo maneja el navegador; también con click
-    document.addEventListener('fullscreenchange', () => {
-      if (!document.fullscreenElement) demoCanvas.blur();
+      if (canvasFsWrap.requestFullscreen)            canvasFsWrap.requestFullscreen();
+      else if (canvasFsWrap.webkitRequestFullscreen) canvasFsWrap.webkitRequestFullscreen();
+      else if (canvasFsWrap.mozRequestFullScreen)    canvasFsWrap.mozRequestFullScreen();
     });
   }
 

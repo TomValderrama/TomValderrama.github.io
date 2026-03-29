@@ -238,30 +238,25 @@
     .fig-item img.loaded { display: block; }
     .fig-item .img-placeholder { position: absolute; inset: 0; }
 
-    /* Canvas fullscreen — el wrapper lleva canvas + textos */
+    /* Canvas fullscreen */
     #canvas-fs-info { display: none; }
 
-    #canvas-fs-wrap:-webkit-full-screen,
-    #canvas-fs-wrap:-moz-full-screen,
-    #canvas-fs-wrap:fullscreen {
+    #canvas-fs-wrap {
       display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
       background: #0a0c10;
-      padding: 20px 56px; gap: 16px;
-      width: 100vw; height: 100vh;
     }
-    #canvas-fs-wrap:fullscreen #demo-canvas,
-    #canvas-fs-wrap:-webkit-full-screen #demo-canvas,
-    #canvas-fs-wrap:-moz-full-screen #demo-canvas {
-      width: 100%; height: auto; max-height: 72vh;
-      flex-shrink: 0;
+    #canvas-fs-wrap.is-fullscreen {
+      position: fixed; inset: 0; z-index: 9999;
+      padding: 20px 48px; gap: 16px;
+      align-items: center; justify-content: center;
     }
-    #canvas-fs-wrap:fullscreen #canvas-fs-info,
-    #canvas-fs-wrap:-webkit-full-screen #canvas-fs-info,
-    #canvas-fs-wrap:-moz-full-screen #canvas-fs-info {
+    #canvas-fs-wrap.is-fullscreen #demo-canvas {
+      width: 100%; max-height: 68vh; flex-shrink: 0;
+    }
+    #canvas-fs-wrap.is-fullscreen #canvas-fs-info {
       display: flex; width: 100%;
     }
-    /* Mismo layout que el lightbox: fila en landscape, columna en portrait */
+    /* Layout: fila en landscape, columna en portrait */
     #canvas-fs-inner {
       display: flex; flex-direction: row;
       align-items: flex-start; gap: 24px; width: 100%;
@@ -290,6 +285,16 @@
       #canvas-fs-inner { flex-direction: column; }
       #canvas-fs-side  { width: 100%; min-width: unset; }
     }
+    /* Botón cerrar canvas fullscreen */
+    #canvas-fs-close {
+      display: none; position: fixed;
+      top: 14px; right: 18px; z-index: 10000;
+      font-size: 28px; color: #9ca3af;
+      cursor: pointer; line-height: 1;
+      transition: color .15s;
+    }
+    #canvas-fs-close:hover { color: #f3f4f6; }
+    body.canvas-fs #canvas-fs-close { display: block; }
 
     /* ── LIGHTBOX ── */
     #lightbox {
@@ -569,6 +574,7 @@
             </div>
           </div>
         </div>
+        <span id="canvas-fs-close">&#x2715;</span>
         <p class="showcase-caption">
           Trayectorias de trazadores lanzados desde distintos puntos del Golfo de Ancud (Tesis de Magíster).
           Simulaciones con <strong>OpenDrift</strong> sobre campos de velocidad del modelo <strong>CROCO-ROMS</strong>.
@@ -1253,21 +1259,41 @@
     });
   });
 
-  // Canvas de partículas — fullscreen sobre el wrapper para incluir textos
-  const demoCanvas = document.getElementById('demo-canvas');
+  // Canvas de partículas — overlay propio con clase .is-fullscreen
+  const demoCanvas  = document.getElementById('demo-canvas');
   const canvasFsWrap = document.getElementById('canvas-fs-wrap');
+  const canvasFsClose = document.getElementById('canvas-fs-close');
+
   if (demoCanvas && canvasFsWrap) {
-    // Inyectar caption y detail desde el card
+    // Inyectar textos desde el card
     const card = demoCanvas.closest('.showcase-card');
     document.getElementById('canvas-fs-caption').innerHTML =
       (card.querySelector('.showcase-caption') || {}).innerHTML || '';
     document.getElementById('canvas-fs-detail').textContent =
       card.dataset.detail || '';
 
-    demoCanvas.addEventListener('click', function () {
-      if (canvasFsWrap.requestFullscreen)            canvasFsWrap.requestFullscreen();
-      else if (canvasFsWrap.webkitRequestFullscreen) canvasFsWrap.webkitRequestFullscreen();
-      else if (canvasFsWrap.mozRequestFullScreen)    canvasFsWrap.mozRequestFullScreen();
+    function openCanvasFs() {
+      canvasFsWrap.classList.add('is-fullscreen');
+      document.body.classList.add('canvas-fs');
+      document.body.style.overflow = 'hidden';
+      // Redimensionar el canvas al nuevo tamaño
+      requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
+    }
+
+    function closeCanvasFs() {
+      canvasFsWrap.classList.remove('is-fullscreen');
+      document.body.classList.remove('canvas-fs');
+      document.body.style.overflow = '';
+      requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
+    }
+
+    demoCanvas.addEventListener('click', openCanvasFs);
+    canvasFsClose.addEventListener('click', closeCanvasFs);
+
+    // Cerrar con ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && canvasFsWrap.classList.contains('is-fullscreen'))
+        closeCanvasFs();
     });
   }
 

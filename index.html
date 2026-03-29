@@ -261,6 +261,25 @@
       transition: color .15s;
     }
     #lightbox-close:hover { color: #f3f4f6; }
+    .lb-arrow {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      font-size: 36px; color: #9ca3af;
+      cursor: pointer; padding: 12px;
+      transition: color .15s; user-select: none;
+      background: rgba(0,0,0,.3); border-radius: 8px;
+    }
+    .lb-arrow:hover { color: #f3f4f6; }
+    #lb-prev { left: 16px; }
+    #lb-next { right: 16px; }
+    #lb-dots {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 8px;
+    }
+    .lb-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #374151; cursor: pointer; transition: background .2s;
+    }
+    .lb-dot.active { background: #f3f4f6; }
 
     /* ── ABOUT ── */
     .about-grid {
@@ -989,10 +1008,13 @@
 })();
 </script>
 
-<!-- ── LIGHTBOX ── -->
+<!-- ── LIGHTBOX / CARRUSEL ── -->
 <div id="lightbox">
   <span id="lightbox-close">&#x2715;</span>
+  <span class="lb-arrow" id="lb-prev">&#x2039;</span>
   <img id="lightbox-img" src="" alt="">
+  <span class="lb-arrow" id="lb-next">&#x203a;</span>
+  <div id="lb-dots"></div>
 </div>
 
 <script>
@@ -1000,30 +1022,69 @@
   const lb    = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightbox-img');
   const lbX   = document.getElementById('lightbox-close');
+  const lbPrev = document.getElementById('lb-prev');
+  const lbNext = document.getElementById('lb-next');
+  const lbDots = document.getElementById('lb-dots');
 
-  function open(src, alt) {
-    lbImg.src = src;
-    lbImg.alt = alt || '';
+  let images = [];   // { src, alt } de la galería activa
+  let current = 0;
+
+  function buildDots() {
+    lbDots.innerHTML = '';
+    images.forEach((_, i) => {
+      const d = document.createElement('span');
+      d.className = 'lb-dot' + (i === current ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      lbDots.appendChild(d);
+    });
+  }
+
+  function goTo(idx) {
+    current = (idx + images.length) % images.length;
+    lbImg.src = images[current].src;
+    lbImg.alt = images[current].alt;
+    lbDots.querySelectorAll('.lb-dot').forEach((d, i) =>
+      d.classList.toggle('active', i === current));
+    lbPrev.style.display = images.length > 1 ? '' : 'none';
+    lbNext.style.display = images.length > 1 ? '' : 'none';
+  }
+
+  function open(gallery, idx) {
+    images  = gallery;
+    current = idx;
+    buildDots();
+    goTo(idx);
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
+
   function close() {
     lb.classList.remove('open');
     document.body.style.overflow = '';
     lbImg.src = '';
   }
 
-  // Click en imágenes de la galería
-  document.querySelectorAll('.fig-item img').forEach(img => {
-    img.addEventListener('click', function () {
-      if (this.classList.contains('loaded')) open(this.src, this.alt);
+  // Agrupar imágenes por galería (.fig-gallery)
+  document.querySelectorAll('.fig-gallery').forEach(gallery => {
+    const imgs = Array.from(gallery.querySelectorAll('.fig-item img'));
+    const items = imgs.map(i => ({ src: i.src, alt: i.alt }));
+    imgs.forEach((img, idx) => {
+      img.addEventListener('click', function () {
+        if (this.classList.contains('loaded')) open(items, idx);
+      });
     });
   });
 
-  // Cerrar con el botón ×, click en fondo, o ESC
+  lbPrev.addEventListener('click', (e) => { e.stopPropagation(); goTo(current - 1); });
+  lbNext.addEventListener('click', (e) => { e.stopPropagation(); goTo(current + 1); });
   lbX.addEventListener('click', close);
   lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
 })();
 </script>
 

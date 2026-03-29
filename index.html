@@ -238,6 +238,11 @@
     .fig-item img.loaded { display: block; }
     .fig-item .img-placeholder { position: absolute; inset: 0; }
 
+    /* Canvas fullscreen */
+    #demo-canvas:-webkit-full-screen { width: 100vw; height: 100vh; background: #0a0c10; }
+    #demo-canvas:-moz-full-screen    { width: 100vw; height: 100vh; background: #0a0c10; }
+    #demo-canvas:fullscreen           { width: 100vw; height: 100vh; background: #0a0c10; }
+
     /* ── LIGHTBOX ── */
     #lightbox {
       display: none;
@@ -1189,15 +1194,17 @@
     });
   });
 
-  // Canvas de partículas
+  // Canvas de partículas — Fullscreen API para mantener la animación viva
   const demoCanvas = document.getElementById('demo-canvas');
   if (demoCanvas) {
     demoCanvas.addEventListener('click', function () {
-      open([{
-        src:     this.toDataURL('image/png'),
-        caption: cardCaption(this),
-        detail:  cardDetail(this)
-      }], 0);
+      if (this.requestFullscreen)            this.requestFullscreen();
+      else if (this.webkitRequestFullscreen) this.webkitRequestFullscreen();
+      else if (this.mozRequestFullScreen)    this.mozRequestFullScreen();
+    });
+    // Salir con ESC ya lo maneja el navegador; también con click
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) demoCanvas.blur();
     });
   }
 

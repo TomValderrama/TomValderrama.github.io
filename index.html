@@ -263,6 +263,23 @@
       text-align: center; line-height: 1.6;
       max-width: 640px;
     }
+    #lb-detail-toggle {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: #3b82f6;
+      cursor: pointer; background: none; border: none;
+      padding: 0; transition: color .15s;
+    }
+    #lb-detail-toggle:hover { color: #60a5fa; }
+    #lb-detail {
+      display: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px; color: #6b7280;
+      text-align: center; line-height: 1.65;
+      max-width: 600px;
+      border-top: 1px solid #1f2937;
+      padding-top: 12px;
+    }
+    #lb-detail.open { display: block; }
     #lightbox-close {
       position: fixed; top: 18px; right: 22px;
       font-size: 28px; color: #9ca3af;
@@ -446,7 +463,8 @@
     <div class="showcase-grid">
 
       <!-- Particle simulation — full width -->
-      <div class="showcase-card showcase-full">
+      <div class="showcase-card showcase-full"
+           data-detail="La simulación sigue partículas individuales advectadas por campos de velocidad 3D del modelo oceánico CROCO-ROMS. Se lanzaron trazadores desde múltiples puntos y profundidades (0–250 m) para estudiar el rol del remolino semipermanente del Golfo de Ancud y el forzamiento mareal en el transporte de material. El campo de velocidad cambia en cada paso de tiempo; las partículas responden en tiempo real.">
         <div class="showcase-label">Simulación lagrangiana de partículas — OpenDrift / CROCO-ROMS</div>
         <canvas id="demo-canvas" class="demo-canvas" style="cursor:zoom-in" title="Click para expandir"></canvas>
         <p class="showcase-caption">
@@ -457,7 +475,8 @@
       </div>
 
       <!-- Maps before/after -->
-      <div class="showcase-card">
+      <div class="showcase-card"
+           data-detail="El script lee coordenadas de instrumentos desde archivos JSON o KMZ, superpone imágenes satelitales ESRI, shapefiles de concesiones acuícolas y datos de viento/corriente ERA5. Reemplaza un flujo manual que requería Global Mapper y PowerPoint: el mapa se genera en segundos con layout y simbología estandarizados, y se exporta como JPG o PDF multipágina.">
         <div class="showcase-label">Generador de mapas — antes / después</div>
         <div class="compare-wrap" id="mapCompare">
           <img class="cmp-img cmp-a" src="assets/mapa_antes.jpg" alt="Datos brutos" data-side="a">
@@ -478,26 +497,24 @@
       </div>
 
       <!-- Celestial vault — ILLUMINA -->
-      <div class="showcase-card">
+      <div class="showcase-card"
+           data-detail="ILLUMINA simula la transferencia radiativa de luz artificial en la atmósfera. Cada panel muestra la radiancia del cielo (W·sr⁻¹·m⁻²) en proyección polar: el centro es el cénit y el borde es el horizonte. La escala logarítmica permite ver varios órdenes de magnitud en un mismo colormap. Las diferencias entre longitudes de onda reflejan la dependencia espectral de la dispersión atmosférica de Rayleigh.">
         <div class="showcase-label">Bóveda celeste — ILLUMINA</div>
         <div class="fig-gallery">
           <div class="fig-item">
-            <img src="assets/boveda_1.jpg" alt="ILLUMINA — sim 1"
-                 data-caption="Subplot 3×9 — radiancia espectral completa (485–725 nm). Cada panel muestra la bóveda celeste en una longitud de onda distinta, desde el azul (485 nm) hasta el rojo (725 nm). Colormap inferno, escala logarítmica compartida.">
+            <img src="assets/boveda_1.jpg" alt="ILLUMINA — sim 1">
             <div class="img-placeholder">
               <span class="ph-label">boveda_1.jpg</span>
             </div>
           </div>
           <div class="fig-item">
-            <img src="assets/boveda_2.jpg" alt="ILLUMINA — sim 2"
-                 data-caption="485 nm — Azul. Longitud de onda corta con mayor dispersión atmosféfica de Rayleigh. La fuente lumínica se ve ampliamente difundida en el hemisferio.">
+            <img src="assets/boveda_2.jpg" alt="ILLUMINA — sim 2">
             <div class="img-placeholder">
               <span class="ph-label">boveda_2.jpg</span>
             </div>
           </div>
           <div class="fig-item">
-            <img src="assets/boveda_3.jpg" alt="ILLUMINA — sim 3"
-                 data-caption="665 nm — Rojo. Longitud de onda larga con menor dispersión. La radiancia se concentra más cerca del horizonte y la fuente, con menor contaminación del cielo.">
+            <img src="assets/boveda_3.jpg" alt="ILLUMINA — sim 3">
             <div class="img-placeholder">
               <span class="ph-label">boveda_3.jpg</span>
             </div>
@@ -1027,6 +1044,8 @@
   <div id="lb-content">
     <img id="lightbox-img" src="" alt="">
     <p id="lb-caption"></p>
+    <button id="lb-detail-toggle">+ detalle técnico</button>
+    <p id="lb-detail"></p>
   </div>
   <span class="lb-arrow" id="lb-next">&#x203a;</span>
   <div id="lb-dots"></div>
@@ -1034,15 +1053,17 @@
 
 <script>
 (function () {
-  const lb      = document.getElementById('lightbox');
-  const lbImg   = document.getElementById('lightbox-img');
-  const lbCap   = document.getElementById('lb-caption');
-  const lbX     = document.getElementById('lightbox-close');
-  const lbPrev  = document.getElementById('lb-prev');
-  const lbNext  = document.getElementById('lb-next');
-  const lbDots  = document.getElementById('lb-dots');
+  const lb           = document.getElementById('lightbox');
+  const lbImg        = document.getElementById('lightbox-img');
+  const lbCap        = document.getElementById('lb-caption');
+  const lbDetailBtn  = document.getElementById('lb-detail-toggle');
+  const lbDetail     = document.getElementById('lb-detail');
+  const lbX          = document.getElementById('lightbox-close');
+  const lbPrev       = document.getElementById('lb-prev');
+  const lbNext       = document.getElementById('lb-next');
+  const lbDots       = document.getElementById('lb-dots');
 
-  let items   = [];  // { src, caption }
+  let items   = [];  // { src, caption, detail }
   let current = 0;
 
   function buildDots() {
@@ -1058,9 +1079,14 @@
 
   function goTo(idx) {
     current = (idx + items.length) % items.length;
-    lbImg.src     = items[current].src;
-    lbCap.innerHTML = items[current].caption || '';
-    lbCap.style.display = items[current].caption ? '' : 'none';
+    const it = items[current];
+    lbImg.src = it.src;
+    lbCap.innerHTML    = it.caption || '';
+    lbCap.style.display = it.caption ? '' : 'none';
+    lbDetail.innerHTML  = it.detail || '';
+    lbDetail.classList.remove('open');
+    lbDetailBtn.textContent = '+ detalle técnico';
+    lbDetailBtn.style.display = it.detail ? '' : 'none';
     lbDots.querySelectorAll('.lb-dot').forEach((d, i) =>
       d.classList.toggle('active', i === current));
     const multi = items.length > 1;
@@ -1083,19 +1109,22 @@
     lbImg.src = '';
   }
 
-  // Helper: obtener caption del showcase-card padre
+  // Helpers para leer caption y detail del showcase-card padre
   function cardCaption(el) {
     const card = el.closest('.showcase-card');
     return card ? (card.querySelector('.showcase-caption') || {}).innerHTML || '' : '';
   }
+  function cardDetail(el) {
+    const card = el.closest('.showcase-card');
+    return card ? card.dataset.detail || '' : '';
+  }
 
-  // Galerías de imágenes (.fig-gallery) — carrusel con caption por imagen
+  // Galerías de imágenes — caption y detail compartidos por card
   document.querySelectorAll('.fig-gallery').forEach(gallery => {
     const imgs  = Array.from(gallery.querySelectorAll('.fig-item img'));
-    const group = imgs.map(img => ({
-      src:     img.src,
-      caption: img.dataset.caption || cardCaption(img)
-    }));
+    const cap   = cardCaption(gallery);
+    const det   = cardDetail(gallery);
+    const group = imgs.map(img => ({ src: img.src, caption: cap, detail: det }));
     imgs.forEach((img, idx) => {
       img.addEventListener('click', function () {
         if (this.classList.contains('loaded')) open(group, idx);
@@ -1103,21 +1132,30 @@
     });
   });
 
-  // Canvas de partículas — captura frame actual
+  // Canvas de partículas
   const demoCanvas = document.getElementById('demo-canvas');
   if (demoCanvas) {
     demoCanvas.addEventListener('click', function () {
-      const src = this.toDataURL('image/png');
-      const cap = cardCaption(this);
-      open([{ src, caption: cap }], 0);
+      open([{
+        src:     this.toDataURL('image/png'),
+        caption: cardCaption(this),
+        detail:  cardDetail(this)
+      }], 0);
     });
   }
+
+  // Toggle detalle técnico
+  lbDetailBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = lbDetail.classList.toggle('open');
+    lbDetailBtn.textContent = open ? '– detalle técnico' : '+ detalle técnico';
+  });
 
   lbPrev.addEventListener('click', (e) => { e.stopPropagation(); goTo(current - 1); });
   lbNext.addEventListener('click', (e) => { e.stopPropagation(); goTo(current + 1); });
   lbX.addEventListener('click', close);
-  lb.addEventListener('click', function (e) { if (e.target === lb || e.target === document.getElementById('lb-content').parentElement) close(); });
-  document.addEventListener('keydown', function (e) {
+  lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', (e) => {
     if (!lb.classList.contains('open')) return;
     if (e.key === 'Escape')     close();
     if (e.key === 'ArrowLeft')  goTo(current - 1);

@@ -248,11 +248,20 @@
       cursor: zoom-out;
     }
     #lightbox.open { display: flex; }
-    #lightbox img {
-      max-width: 92vw; max-height: 92vh;
+    #lb-content {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 16px; max-width: 88vw; cursor: default;
+    }
+    #lightbox-img {
+      max-width: 100%; max-height: 78vh;
       border-radius: 10px;
       box-shadow: 0 8px 48px rgba(0,0,0,.7);
-      cursor: default;
+    }
+    #lb-caption {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px; color: #9ca3af;
+      text-align: center; line-height: 1.6;
+      max-width: 640px;
     }
     #lightbox-close {
       position: fixed; top: 18px; right: 22px;
@@ -439,7 +448,7 @@
       <!-- Particle simulation — full width -->
       <div class="showcase-card showcase-full">
         <div class="showcase-label">Simulación lagrangiana de partículas — OpenDrift / CROCO-ROMS</div>
-        <canvas id="demo-canvas" class="demo-canvas"></canvas>
+        <canvas id="demo-canvas" class="demo-canvas" style="cursor:zoom-in" title="Click para expandir"></canvas>
         <p class="showcase-caption">
           Trayectorias de trazadores lanzados desde distintos puntos del Golfo de Ancud (Tesis de Magíster).
           Simulaciones con <strong>OpenDrift</strong> sobre campos de velocidad del modelo <strong>CROCO-ROMS</strong>.
@@ -473,19 +482,22 @@
         <div class="showcase-label">Bóveda celeste — ILLUMINA</div>
         <div class="fig-gallery">
           <div class="fig-item">
-            <img src="assets/boveda_1.jpg" alt="ILLUMINA — sim 1">
+            <img src="assets/boveda_1.jpg" alt="ILLUMINA — sim 1"
+                 data-caption="Subplot 3×9 — radiancia espectral completa (485–725 nm). Cada panel muestra la bóveda celeste en una longitud de onda distinta, desde el azul (485 nm) hasta el rojo (725 nm). Colormap inferno, escala logarítmica compartida.">
             <div class="img-placeholder">
               <span class="ph-label">boveda_1.jpg</span>
             </div>
           </div>
           <div class="fig-item">
-            <img src="assets/boveda_2.jpg" alt="ILLUMINA — sim 2">
+            <img src="assets/boveda_2.jpg" alt="ILLUMINA — sim 2"
+                 data-caption="485 nm — Azul. Longitud de onda corta con mayor dispersión atmosféfica de Rayleigh. La fuente lumínica se ve ampliamente difundida en el hemisferio.">
             <div class="img-placeholder">
               <span class="ph-label">boveda_2.jpg</span>
             </div>
           </div>
           <div class="fig-item">
-            <img src="assets/boveda_3.jpg" alt="ILLUMINA — sim 3">
+            <img src="assets/boveda_3.jpg" alt="ILLUMINA — sim 3"
+                 data-caption="665 nm — Rojo. Longitud de onda larga con menor dispersión. La radiancia se concentra más cerca del horizonte y la fuente, con menor contaminación del cielo.">
             <div class="img-placeholder">
               <span class="ph-label">boveda_3.jpg</span>
             </div>
@@ -1012,45 +1024,52 @@
 <div id="lightbox">
   <span id="lightbox-close">&#x2715;</span>
   <span class="lb-arrow" id="lb-prev">&#x2039;</span>
-  <img id="lightbox-img" src="" alt="">
+  <div id="lb-content">
+    <img id="lightbox-img" src="" alt="">
+    <p id="lb-caption"></p>
+  </div>
   <span class="lb-arrow" id="lb-next">&#x203a;</span>
   <div id="lb-dots"></div>
 </div>
 
 <script>
 (function () {
-  const lb    = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lightbox-img');
-  const lbX   = document.getElementById('lightbox-close');
-  const lbPrev = document.getElementById('lb-prev');
-  const lbNext = document.getElementById('lb-next');
-  const lbDots = document.getElementById('lb-dots');
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lightbox-img');
+  const lbCap   = document.getElementById('lb-caption');
+  const lbX     = document.getElementById('lightbox-close');
+  const lbPrev  = document.getElementById('lb-prev');
+  const lbNext  = document.getElementById('lb-next');
+  const lbDots  = document.getElementById('lb-dots');
 
-  let images = [];   // { src, alt } de la galería activa
+  let items   = [];  // { src, caption }
   let current = 0;
 
   function buildDots() {
     lbDots.innerHTML = '';
-    images.forEach((_, i) => {
+    items.forEach((_, i) => {
       const d = document.createElement('span');
       d.className = 'lb-dot' + (i === current ? ' active' : '');
-      d.addEventListener('click', () => goTo(i));
+      d.addEventListener('click', (e) => { e.stopPropagation(); goTo(i); });
       lbDots.appendChild(d);
     });
+    lbDots.style.display = items.length > 1 ? 'flex' : 'none';
   }
 
   function goTo(idx) {
-    current = (idx + images.length) % images.length;
-    lbImg.src = images[current].src;
-    lbImg.alt = images[current].alt;
+    current = (idx + items.length) % items.length;
+    lbImg.src     = items[current].src;
+    lbCap.innerHTML = items[current].caption || '';
+    lbCap.style.display = items[current].caption ? '' : 'none';
     lbDots.querySelectorAll('.lb-dot').forEach((d, i) =>
       d.classList.toggle('active', i === current));
-    lbPrev.style.display = images.length > 1 ? '' : 'none';
-    lbNext.style.display = images.length > 1 ? '' : 'none';
+    const multi = items.length > 1;
+    lbPrev.style.display = multi ? '' : 'none';
+    lbNext.style.display = multi ? '' : 'none';
   }
 
   function open(gallery, idx) {
-    images  = gallery;
+    items   = gallery;
     current = idx;
     buildDots();
     goTo(idx);
@@ -1064,21 +1083,40 @@
     lbImg.src = '';
   }
 
-  // Agrupar imágenes por galería (.fig-gallery)
+  // Helper: obtener caption del showcase-card padre
+  function cardCaption(el) {
+    const card = el.closest('.showcase-card');
+    return card ? (card.querySelector('.showcase-caption') || {}).innerHTML || '' : '';
+  }
+
+  // Galerías de imágenes (.fig-gallery) — carrusel con caption por imagen
   document.querySelectorAll('.fig-gallery').forEach(gallery => {
-    const imgs = Array.from(gallery.querySelectorAll('.fig-item img'));
-    const items = imgs.map(i => ({ src: i.src, alt: i.alt }));
+    const imgs  = Array.from(gallery.querySelectorAll('.fig-item img'));
+    const group = imgs.map(img => ({
+      src:     img.src,
+      caption: img.dataset.caption || cardCaption(img)
+    }));
     imgs.forEach((img, idx) => {
       img.addEventListener('click', function () {
-        if (this.classList.contains('loaded')) open(items, idx);
+        if (this.classList.contains('loaded')) open(group, idx);
       });
     });
   });
 
+  // Canvas de partículas — captura frame actual
+  const demoCanvas = document.getElementById('demo-canvas');
+  if (demoCanvas) {
+    demoCanvas.addEventListener('click', function () {
+      const src = this.toDataURL('image/png');
+      const cap = cardCaption(this);
+      open([{ src, caption: cap }], 0);
+    });
+  }
+
   lbPrev.addEventListener('click', (e) => { e.stopPropagation(); goTo(current - 1); });
   lbNext.addEventListener('click', (e) => { e.stopPropagation(); goTo(current + 1); });
   lbX.addEventListener('click', close);
-  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  lb.addEventListener('click', function (e) { if (e.target === lb || e.target === document.getElementById('lb-content').parentElement) close(); });
   document.addEventListener('keydown', function (e) {
     if (!lb.classList.contains('open')) return;
     if (e.key === 'Escape')     close();

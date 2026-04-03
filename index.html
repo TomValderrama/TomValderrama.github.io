@@ -126,13 +126,47 @@
     }
 
     /* ── SHOWCASE ── */
-    .showcase-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    /* project carousel */
+    .viz-carousel-wrap {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 16px;
     }
-    @media (max-width: 700px) { .showcase-grid { grid-template-columns: 1fr; } }
-    .showcase-full { grid-column: 1 / -1; }
+    .viz-carousel {
+      display: flex; gap: 12px;
+      overflow-x: hidden; flex: 1;
+      scroll-behavior: smooth;
+    }
+    .viz-slide {
+      flex: 0 0 240px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+      cursor: pointer;
+      transition: border-color .15s, transform .15s;
+    }
+    .viz-slide:hover { border-color: var(--blue); transform: translateY(-2px); }
+    .viz-thumb-wrap { height: 160px; overflow: hidden; background: var(--bg); }
+    .viz-thumb { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .viz-slide-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; font-weight: 600;
+      color: var(--blue-lt); text-transform: uppercase;
+      letter-spacing: .5px; padding: 10px 12px;
+    }
+    .viz-arr {
+      flex-shrink: 0; width: 34px; height: 34px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--subtle);
+      font-size: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .15s, color .15s;
+    }
+    .viz-arr:hover { border-color: var(--blue); color: #f3f4f6; }
+    .viz-arr:disabled { opacity: 0.3; cursor: default; }
+    @media (max-width: 700px) {
+      .viz-slide { flex: 0 0 200px; }
+      .viz-thumb-wrap { height: 130px; }
+    }
 
     .showcase-card {
       background: var(--surface);
@@ -556,10 +590,8 @@
   <div class="container">
     <p class="section-tag">Visualizaciones</p>
     <h2 class="section-title">En acción</h2>
-    <div class="showcase-grid">
-
-      <!-- Particle simulation — full width -->
-      <div class="showcase-card showcase-full"
+      <!-- Particle simulation — full width, standalone -->
+      <div class="showcase-card"
            data-detail="La simulación sigue partículas individuales advectadas por campos de velocidad 3D del modelo oceánico CROCO-ROMS. Se lanzaron trazadores desde múltiples puntos y profundidades (0–250 m) para estudiar el rol del remolino semipermanente del Golfo de Ancud y el forzamiento mareal en el transporte de material. El campo de velocidad cambia en cada paso de tiempo; las partículas responden en tiempo real.">
         <div class="showcase-label">Simulación lagrangiana de partículas — OpenDrift / CROCO-ROMS</div>
         <div id="canvas-fs-wrap">
@@ -582,86 +614,12 @@
         </p>
       </div>
 
-      <!-- Maps before/after — OCULTO hasta subir imágenes
-      <div class="showcase-card"
-           data-detail="El script lee coordenadas de instrumentos desde archivos JSON o KMZ, superpone imágenes satelitales ESRI, shapefiles de concesiones acuícolas y datos de viento/corriente ERA5. Reemplaza un flujo manual que requería Global Mapper y PowerPoint: el mapa se genera en segundos con layout y simbología estandarizados, y se exporta como JPG o PDF multipágina.">
-        <div class="showcase-label">Generador de mapas — antes / después</div>
-        <div class="compare-wrap" id="mapCompare">
-          <img class="cmp-img cmp-a" src="assets/mapa_antes.jpg" alt="Datos brutos" data-side="a">
-          <img class="cmp-img cmp-b" src="assets/mapa_despues.jpg" alt="Mapa generado" data-side="b">
-          <div class="compare-divider" id="cmpDivider"></div>
-          <div class="compare-knob"   id="cmpKnob">⟺</div>
-          <div class="img-placeholder" id="cmpPlaceholder">
-            <span class="ph-label">assets/mapa_antes.jpg</span>
-            <span class="ph-label">assets/mapa_despues.jpg</span>
-            <p class="ph-hint">Arrastrá para comparar<br>datos brutos vs. mapa generado</p>
-          </div>
-        </div>
-        <p class="showcase-caption">
-          Generador de mapas cartográficos para centros de monitoreo marino: de coordenadas en JSON/KMZ
-          a mapa georreferenciado con equipos (ADCP, anemómetros, boyas) y concesiones acuícolas.
-          Exporta JPG individual o PDF multipágina.
-        </p>
+      <!-- Project carousel — populated by JS -->
+      <div class="viz-carousel-wrap">
+        <button class="viz-arr" id="viz-prev" aria-label="Anterior">&#8249;</button>
+        <div class="viz-carousel" id="viz-carousel"></div>
+        <button class="viz-arr" id="viz-next" aria-label="Siguiente">&#8250;</button>
       </div>
-      -->
-
-      <!-- Celestial vault — ILLUMINA -->
-      <div class="showcase-card"
-           data-detail="ILLUMINA simula la transferencia radiativa de luz artificial en la atmósfera. Cada panel muestra la radiancia del cielo (W·sr⁻¹·m⁻²) en proyección polar: el centro es el cénit y el borde es el horizonte. La escala logarítmica permite ver varios órdenes de magnitud en un mismo colormap. Las diferencias entre longitudes de onda reflejan la dependencia espectral de la dispersión atmosférica de Rayleigh.">
-        <div class="showcase-label">Bóveda celeste — ILLUMINA</div>
-        <div class="fig-gallery">
-          <div class="fig-item">
-            <img src="assets/boveda_1.jpg" alt="ILLUMINA — sim 1">
-            <div class="img-placeholder">
-              <span class="ph-label">boveda_1.jpg</span>
-            </div>
-          </div>
-          <div class="fig-item">
-            <img src="assets/boveda_2.jpg" alt="ILLUMINA — sim 2">
-            <div class="img-placeholder">
-              <span class="ph-label">boveda_2.jpg</span>
-            </div>
-          </div>
-          <div class="fig-item">
-            <img src="assets/boveda_3.jpg" alt="ILLUMINA — sim 3">
-            <div class="img-placeholder">
-              <span class="ph-label">boveda_3.jpg</span>
-            </div>
-          </div>
-        </div>
-        <p class="showcase-caption">
-          Simulaciones de transferencia radiativa ILLUMINA para evaluación de contaminación lumínica
-          en el norte de Chile. Benchmark con datos de Hawái (SRTM + VIIRS), validados contra
-          mediciones de sky quality meters en terreno.
-        </p>
-      </div>
-
-      <!-- Cobertura Sentinel-2 -->
-      <div class="showcase-card"
-           data-detail="Pipeline desarrollado en Google Earth Engine (JavaScript) para descargar y procesar imágenes Sentinel-2 de forma masiva. El coroplético muestra la variación estacional de la cobertura disponible por región: más imágenes en verano (cielos despejados) y menos en invierno (nubosidad). Cada celda representa el conteo mensual de escenas válidas descargadas para el análisis de NDVI, NDWI y PAR.">
-        <div class="showcase-label">Cobertura Sentinel-2 — RM, Valparaíso y O'Higgins</div>
-        <div class="fig-gallery">
-          <div class="fig-item">
-            <img src="assets/teselado_1.jpg" alt="Climatología mensual Sentinel-2 2023-2024">
-            <div class="img-placeholder">
-              <span class="ph-label">teselado_1.jpg</span>
-            </div>
-          </div>
-          <div class="fig-item">
-            <img src="assets/teselado_2.jpg" alt="Cobertura Sentinel-2 Diciembre 2023">
-            <div class="img-placeholder">
-              <span class="ph-label">teselado_2.jpg</span>
-            </div>
-          </div>
-        </div>
-        <p class="showcase-caption">
-          Climatología de cobertura Sentinel-2 (2023–2024) para las regiones de Valparaíso,
-          Metropolitana y O'Higgins. Conteo mensual de imágenes disponibles, generado como
-          parte del pipeline de descarga masiva desarrollado para LATLON SpA / FONDART.
-        </p>
-      </div>
-
-    </div>
   </div>
 </section>
 
@@ -1272,18 +1230,67 @@
     return card ? card.dataset.detail || '' : '';
   }
 
-  // Galerías de imágenes — caption y detail compartidos por card
-  document.querySelectorAll('.fig-gallery').forEach(gallery => {
-    const imgs  = Array.from(gallery.querySelectorAll('.fig-item img'));
-    const cap   = cardCaption(gallery);
-    const det   = cardDetail(gallery);
-    const group = imgs.map(img => ({ src: img.src, caption: cap, detail: det }));
-    imgs.forEach((img, idx) => {
-      img.addEventListener('click', function () {
-        if (this.classList.contains('loaded')) open(group, idx);
+  // ── Proyectos del carrusel ────────────────────────────────────────────────
+  const PROJECTS = [
+    {
+      label:   'Bóveda celeste — ILLUMINA',
+      thumb:   'assets/boveda_1.jpg',
+      images:  ['assets/boveda_1.jpg', 'assets/boveda_2.jpg', 'assets/boveda_3.jpg'],
+      caption: 'Simulaciones de transferencia radiativa ILLUMINA para evaluación de contaminación lumínica en el norte de Chile. Benchmark con datos de Hawái (SRTM + VIIRS), validados contra mediciones de sky quality meters en terreno.',
+      detail:  'ILLUMINA simula la transferencia radiativa de luz artificial en la atmósfera. Cada panel muestra la radiancia del cielo (W·sr⁻¹·m⁻²) en proyección polar: el centro es el cénit y el borde es el horizonte. La escala logarítmica permite ver varios órdenes de magnitud en un mismo colormap. Las diferencias entre longitudes de onda reflejan la dependencia espectral de la dispersión atmosférica de Rayleigh.',
+    },
+    {
+      label:   'Cobertura Sentinel-2 — RM, Valparaíso y O\'Higgins',
+      thumb:   'assets/teselado_1.jpg',
+      images:  ['assets/teselado_1.jpg', 'assets/teselado_2.jpg'],
+      caption: 'Climatología de cobertura Sentinel-2 (2023–2024) para las regiones de Valparaíso, Metropolitana y O\'Higgins. Conteo mensual de escenas disponibles por tile MGRS (~100 km), generado como parte del pipeline de descarga masiva desarrollado para LATLON SpA / FONDART.',
+      detail:  'Metadatos descargados directamente desde la API STAC de Copernicus Data Space Ecosystem (~8 800 imágenes, 36 tiles, sin usar Google Earth Engine). Cada polígono representa el footprint real de un tile MGRS. La escala de color muestra el número de escenas L2A disponibles por mes; los máximos en primavera–verano reflejan menor nubosidad.',
+    },
+  ];
+
+  // Construir slides del carrusel
+  const vizCarousel = document.getElementById('viz-carousel');
+  const vizPrev     = document.getElementById('viz-prev');
+  const vizNext     = document.getElementById('viz-next');
+
+  if (vizCarousel) {
+    PROJECTS.forEach((proj, pi) => {
+      const slide = document.createElement('div');
+      slide.className = 'viz-slide';
+
+      const thumbWrap = document.createElement('div');
+      thumbWrap.className = 'viz-thumb-wrap';
+      const img = document.createElement('img');
+      img.className = 'viz-thumb';
+      img.src = proj.thumb;
+      img.alt = proj.label;
+      thumbWrap.appendChild(img);
+
+      const labelEl = document.createElement('div');
+      labelEl.className = 'viz-slide-label';
+      labelEl.textContent = proj.label;
+
+      slide.appendChild(thumbWrap);
+      slide.appendChild(labelEl);
+
+      // Abrir lightbox con todas las imágenes del proyecto
+      slide.addEventListener('click', () => {
+        const gallery = proj.images.map(src => ({
+          src, caption: proj.caption, detail: proj.detail
+        }));
+        open(gallery, 0);
       });
+
+      vizCarousel.appendChild(slide);
     });
-  });
+
+    // Navegación del carrusel
+    const SLIDE_W = 252; // 240px + 12px gap
+    vizPrev.addEventListener('click', () =>
+      vizCarousel.scrollBy({ left: -SLIDE_W, behavior: 'smooth' }));
+    vizNext.addEventListener('click', () =>
+      vizCarousel.scrollBy({ left: SLIDE_W, behavior: 'smooth' }));
+  }
 
   // Canvas de partículas — overlay propio con clase .is-fullscreen
   const demoCanvas  = document.getElementById('demo-canvas');

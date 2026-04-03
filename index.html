@@ -1241,16 +1241,17 @@
     },
     {
       label:   'Cobertura Sentinel-2 — RM, Valparaíso y O\'Higgins',
-      thumb:   'assets/teselado_climatologia.jpg',
+      thumb:   'assets/teselado_total.jpg',
       images:  [
+        'assets/teselado_total.jpg',
         'assets/teselado_climatologia.jpg',
         'assets/teselado_2021.jpg',
         'assets/teselado_2022.jpg',
         'assets/teselado_2023.jpg',
         'assets/teselado_2024.jpg',
       ],
-      caption: 'Climatología de cobertura Sentinel-2 (2021–2024) para las regiones de Valparaíso, Metropolitana y O\'Higgins. Conteo mensual de escenas disponibles por tile MGRS (~100 km), generado como parte del pipeline de descarga masiva desarrollado para LATLON SpA / FONDART.',
-      detail:  'Metadatos descargados directamente desde la API STAC de Copernicus Data Space Ecosystem (~17 600 imágenes, 4 años, sin usar Google Earth Engine). Cada polígono representa el footprint real de un tile MGRS (unión de todas las escenas del período). La climatología promedia los 4 años por mes calendario; las figuras anuales muestran la variabilidad interanual.',
+      caption: 'Cobertura Sentinel-2 (2021–2024) para las regiones de Valparaíso, Metropolitana y O\'Higgins. ~17 700 imágenes descargadas desde la API STAC de Copernicus sin usar Google Earth Engine.',
+      detail:  'Cada polígono representa el footprint real de un tile MGRS (~100×100 km), obtenido como unión de todas las escenas del período. La figura principal muestra el total acumulado por tile (hasta 609 imágenes en 48 meses); la climatología agrega los 4 años por mes calendario; las figuras anuales muestran variabilidad interanual. Las zonas de solapamiento entre tiles adyacentes se acumulan visualmente por transparencia.',
     },
   ];
 

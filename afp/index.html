@@ -29,7 +29,8 @@
 var useState = React.useState, useMemo = React.useMemo, useCallback = React.useCallback, createElement = React.createElement;
 var LineChart = Recharts.LineChart, Line = Recharts.Line, XAxis = Recharts.XAxis, YAxis = Recharts.YAxis,
     Tooltip = Recharts.Tooltip, ResponsiveContainer = Recharts.ResponsiveContainer, Legend = Recharts.Legend,
-    ReferenceLine = Recharts.ReferenceLine, AreaChart = Recharts.AreaChart, Area = Recharts.Area;
+    ReferenceLine = Recharts.ReferenceLine, AreaChart = Recharts.AreaChart, Area = Recharts.Area,
+    BarChart = Recharts.BarChart, Bar = Recharts.Bar, Cell = Recharts.Cell;
 var e = createElement;
 
 var AFP_NAMES = ["Capital", "Cuprum", "Habitat", "Modelo", "Planvital", "ProVida", "Uno"];
@@ -69,6 +70,61 @@ var INITIAL_HISTORICO = {
   2024: { A: 9.10,  B: 7.44,  C: 3.35,  D: 0.10,  E: 0.31,  src: "SP 2024" },
   2025: { A: 14.89, B: 13.14, C: 12.18, D: 10.47, E: 8.06,  src: "SP 2025" },
 };
+
+// ── Monte Carlo bootstrap ─────────────────────────────────────────────────────
+function simMonteCarloAll(ahorro, sueldo, comPct, historico, nSim, nAnios) {
+  var allRets = {};
+  FONDOS.forEach(function(f) {
+    allRets[f] = Object.values(historico).filter(function(yr) { return yr[f] != null; }).map(function(yr) { return yr[f]; });
+  });
+  var results = {};
+  FONDOS.forEach(function(f) {
+    var rets = allRets[f];
+    if (!rets.length) { results[f] = null; return; }
+    var cot = sueldo * 0.1, comAmt = sueldo * (comPct / 100);
+    var trajs = [];
+    for (var s = 0; s < nSim; s++) {
+      var sal = ahorro, traj = [sal];
+      for (var y = 0; y < nAnios; y++) {
+        var rent = rets[Math.floor(Math.random() * rets.length)];
+        var rm = Math.pow(1 + rent / 100, 1/12) - 1;
+        for (var m = 0; m < 12; m++) sal = sal * (1 + rm) + cot - comAmt;
+        traj.push(sal);
+      }
+      trajs.push(traj);
+    }
+    var pcts = [];
+    for (var y2 = 0; y2 <= nAnios; y2++) {
+      var vals = trajs.map(function(t) { return t[y2]; }).sort(function(a,b) { return a-b; });
+      pcts.push({ p10: vals[Math.floor(0.10*nSim)], p50: vals[Math.floor(0.50*nSim)], p90: vals[Math.floor(0.90*nSim)] });
+    }
+    results[f] = pcts;
+  });
+  return results;
+}
+
+// ── Sharpe ratio (tasa libre de riesgo = 0) ────────────────────────────────────
+function calcSharpe(historico) {
+  var out = {};
+  FONDOS.forEach(function(f) {
+    var vals = Object.values(historico).filter(function(yr) { return yr[f] != null; }).map(function(yr) { return yr[f]; });
+    if (vals.length < 2) { out[f] = null; return; }
+    var mean = vals.reduce(function(a,b) { return a+b; }, 0) / vals.length;
+    var std  = Math.sqrt(vals.reduce(function(a,b) { return a + Math.pow(b-mean,2); }, 0) / (vals.length-1));
+    out[f] = std > 0 ? mean / std : 0;
+  });
+  return out;
+}
+
+// ── Recomendación por horizonte ────────────────────────────────────────────────
+function getRecomendacion(edad) {
+  var a = Math.max(65 - edad, 0);
+  if (a > 30) return { fondo:'A', anios:a, desc:'Horizonte >30 años — máxima exposición a renta variable' };
+  if (a > 20) return { fondo:'B', anios:a, desc:'Horizonte 20-30 años — alta exposición a renta variable' };
+  if (a > 10) return { fondo:'C', anios:a, desc:'Horizonte 10-20 años — portafolio balanceado' };
+  if (a > 5)  return { fondo:'D', anios:a, desc:'Horizonte 5-10 años — portafolio conservador' };
+  return { fondo:'E', anios:a, desc:'Horizonte <5 años — máxima preservación de capital' };
+}
 
 function fmt(n) {
   if (n == null) return "-";
@@ -149,6 +205,7 @@ function AFPEvaluatorV3() {
   var _histStart = useState(2003), histStart = _histStart[0], setHistStart = _histStart[1];
   var _histEnd = useState(2025), histEnd = _histEnd[0], setHistEnd = _histEnd[1];
   var _editingHist = useState(false), editingHist = _editingHist[0], setEditingHist = _editingHist[1];
+  var _mcFondo = useState("A"), mcFondo = _mcFondo[0], setMcFondo = _mcFondo[1];
 
   var allYears = Object.keys(historico).map(Number).sort();
   var rangeYears = allYears.filter(function(y) { return y >= histStart && y <= histEnd; });
@@ -246,6 +303,19 @@ function AFPEvaluatorV3() {
     return { data: data, cruces: cruces };
   }, [cruzAfp, cruzFondos, ahorro, sueldo, aniosProy]);
 
+  var recomendacion = useMemo(function() { return getRecomendacion(edad); }, [edad]);
+  var sharpeData    = useMemo(function() { return calcSharpe(historico); }, [historico]);
+  var mcData        = useMemo(function() {
+    var res = simMonteCarloAll(ahorro, sueldo, COMISIONES[cruzAfp], historico, 400, aniosProy);
+    var data = [];
+    for (var y = 0; y <= aniosProy; y++) {
+      var pt = { anio: y };
+      FONDOS.forEach(function(f) { if (res[f]) { pt['p10_'+f]=res[f][y].p10; pt['p50_'+f]=res[f][y].p50; pt['p90_'+f]=res[f][y].p90; } });
+      data.push(pt);
+    }
+    return { data: data, raw: res };
+  }, [ahorro, sueldo, cruzAfp, historico, aniosProy]);
+
   var histChartData = useMemo(function() {
     return allYears.map(function(y) {
       var d = { anio: y };
@@ -276,10 +346,11 @@ function AFPEvaluatorV3() {
   var best = currentList[0] ? currentList[0].saldo : 1;
 
   var tabsDef = [
-    { id: "proyeccion", label: "Proyeccion" },
-    { id: "cruce", label: "Cuando gana A?" },
-    { id: "acumulado", label: "Acumulado" },
-    { id: "datos", label: "Datos" },
+    { id: "proyeccion",   label: "Proyección" },
+    { id: "cruce",        label: "¿Cuándo gana A?" },
+    { id: "acumulado",    label: "Acumulado" },
+    { id: "montecarlo",   label: "Monte Carlo" },
+    { id: "datos",        label: "Datos" },
   ];
 
   var P = { padding: 14, background: "#111318", borderRadius: 10, border: "1px solid #23272f", marginBottom: 14 };
@@ -464,6 +535,98 @@ function AFPEvaluatorV3() {
     );
   }
 
+  // ========== TAB: MONTE CARLO ==========
+  function renderMonteCarlo() {
+    var f = mcFondo;
+    var pcts = mcData.raw[f];
+    var col = FONDO_COLORS[f];
+    var finalIdx = aniosProy;
+    var sharpeBar = FONDOS.map(function(x) { return { f: x, v: sharpeData[x] }; })
+                          .filter(function(x) { return x.v != null; })
+                          .sort(function(a,b) { return b.v - a.v; });
+    return e("div", null,
+      // Selector fondo
+      e("div", { style: P },
+        e("div", { style: { display:"flex", alignItems:"center", gap:12, flexWrap:"wrap", marginBottom:10 }},
+          e("div", null,
+            e("label", { style: L }, "Fondo a simular"),
+            e("div", { style: { display:"flex", gap:3 }},
+              FONDOS.map(function(x) {
+                return e("button", { key:x, onClick: function() { setMcFondo(x); }, style: {
+                  padding:"4px 9px", borderRadius:5, cursor:"pointer", fontFamily:"'DM Mono',monospace",
+                  fontSize:11, fontWeight:600,
+                  border: mcFondo===x ? "2px solid "+FONDO_COLORS[x] : "1px solid #23272f",
+                  background: mcFondo===x ? FONDO_COLORS[x]+"18" : "#0a0c10",
+                  color: mcFondo===x ? FONDO_COLORS[x] : "#6b7280",
+                }}, x);
+              })
+            )
+          ),
+          e("div", null,
+            e("label", { style: L }, "AFP (comision)"),
+            e("select", { value: cruzAfp, onChange: function(ev) { setCruzAfp(ev.target.value); },
+              style: Object.assign({}, I, { width:"auto", padding:"6px 8px", fontSize:12, cursor:"pointer" })},
+              AFP_NAMES.map(function(a) { return e("option", { key:a, value:a }, a+" ("+COMISIONES[a]+"%)"); })
+            )
+          )
+        ),
+        pcts ? e("div", { style: { width:"100%", height:300 }},
+          e(ResponsiveContainer, null,
+            e(LineChart, { data: mcData.data, margin:{ top:6, right:12, bottom:6, left:6 }},
+              e(XAxis, { dataKey:"anio", stroke:"#6b7280", fontSize:9, fontFamily:"'DM Mono',monospace", tickFormatter:function(v){return v+"a";}}),
+              e(YAxis, { stroke:"#6b7280", fontSize:9, fontFamily:"'DM Mono',monospace", tickFormatter:function(v){return fmt(v);}, width:68 }),
+              e(Tooltip, { contentStyle:{ background:"#111318", border:"1px solid #23272f", borderRadius:8, fontFamily:"'DM Mono',monospace", fontSize:10 },
+                formatter:function(v,n){ return [fmtFull(v), n]; },
+                labelFormatter:function(v){ return "Año "+v+" (edad "+(edad+v)+")"; }}),
+              e(ReferenceLine, { y:ahorro, stroke:"#374151", strokeDasharray:"3 3" }),
+              e(Line, { type:"monotone", dataKey:"p90_"+f, stroke:col, strokeWidth:1.5, dot:false, strokeDasharray:"4 3",
+                name:"P90 (mejor 10%)" }),
+              e(Line, { type:"monotone", dataKey:"p50_"+f, stroke:col, strokeWidth:2.5, dot:false,
+                name:"P50 (mediana)" }),
+              e(Line, { type:"monotone", dataKey:"p10_"+f, stroke:col, strokeWidth:1.5, dot:false, strokeDasharray:"4 3",
+                name:"P10 (peor 10%)" })
+            )
+          )
+        ) : null,
+        // Resultados al final del período
+        pcts ? e("div", { style:{ marginTop:10, display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:8 }},
+          [["P10 (peor 10%)", pcts[finalIdx].p10, "#ef4444"],
+           ["P50 (mediana)",  pcts[finalIdx].p50, col],
+           ["P90 (mejor 10%)",pcts[finalIdx].p90, "#22c55e"]].map(function(row) {
+            return e("div", { key:row[0], style:{ background:"#0a0c10", borderRadius:7, padding:"8px 10px", border:"1px solid "+row[2]+"33" }},
+              e("div", { style:{ fontFamily:"'DM Mono',monospace", fontSize:9, color:"#6b7280", marginBottom:3 }}, row[0]),
+              e("div", { style:{ fontFamily:"'DM Mono',monospace", fontSize:13, fontWeight:700, color:row[2] }}, fmt(row[1]))
+            );
+          })
+        ) : null
+      ),
+      // Sharpe ratio
+      e("div", { style: P },
+        e("h3", { style:{ fontFamily:"'DM Mono',monospace", fontSize:12, fontWeight:700, margin:"0 0 8px" }},
+          "Sharpe Ratio por fondo  ("+Object.values(historico).filter(function(yr){return yr[FONDOS[0]]!=null;}).length+" años de datos)"),
+        e("div", { style:{ width:"100%", height:160 }},
+          e(ResponsiveContainer, null,
+            e(BarChart, { data: sharpeBar, margin:{ top:4, right:12, bottom:4, left:0 }},
+              e(XAxis, { dataKey:"f", stroke:"#6b7280", fontSize:10, fontFamily:"'DM Mono',monospace",
+                tickFormatter:function(v){ return "Fondo "+v; }}),
+              e(YAxis, { stroke:"#6b7280", fontSize:9, fontFamily:"'DM Mono',monospace",
+                tickFormatter:function(v){ return v.toFixed(2); }, width:40 }),
+              e(Tooltip, { contentStyle:{ background:"#111318", border:"1px solid #23272f", borderRadius:8, fontFamily:"'DM Mono',monospace", fontSize:10 },
+                formatter:function(v){ return [v.toFixed(3), "Sharpe"]; },
+                labelFormatter:function(v){ return "Fondo "+v; }}),
+              e(ReferenceLine, { y:0, stroke:"#374151" }),
+              e(Bar, { dataKey:"v", radius:[4,4,0,0], name:"Sharpe" },
+                sharpeBar.map(function(entry) {
+                  return e(Cell, { key:entry.f, fill: FONDO_COLORS[entry.f] });
+                })
+              )
+            )
+          )
+        )
+      )
+    );
+  }
+
   // ========== TAB: DATOS ==========
   function renderDatos() {
     return e("div", { style: P },
@@ -578,6 +741,17 @@ function AFPEvaluatorV3() {
           e("input", { type: "number", value: aniosProy, min: 1, max: 40,
             onChange: function(ev) { setAniosProy(Number(ev.target.value)); }, style: I }))
       ),
+      // Recomendación por horizonte
+      e("div", { style: Object.assign({}, P, { background:"#0f1115", border:"1px solid "+FONDO_COLORS[recomendacion.fondo]+"44", marginTop:0 })},
+        e("div", { style:{ display:"flex", alignItems:"center", gap:10, flexWrap:"wrap" }},
+          e("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:9, color:"#6b7280", textTransform:"uppercase", letterSpacing:"0.5px" }},
+            "Recomendación por horizonte"),
+          e("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:15, fontWeight:700, color:FONDO_COLORS[recomendacion.fondo] }},
+            "Fondo "+recomendacion.fondo),
+          e("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:10, color:"#9ca3af" }},
+            recomendacion.desc+" ("+recomendacion.anios+" años para jubilación)")
+        )
+      ),
       // Promedios confirmados
       e("div", { style: Object.assign({}, P, { background: "#0f1115", border: "1px solid #22c55e22" })},
         e("p", { style: { fontFamily: "'DM Mono',monospace", fontSize: 10, color: "#22c55e", margin: "0 0 6px",
@@ -602,8 +776,9 @@ function AFPEvaluatorV3() {
       // Tab content
       tab === "proyeccion" ? renderProyeccion() : null,
       tab === "cruce" ? renderCruce() : null,
-      tab === "acumulado" ? renderAcumulado() : null,
-      tab === "datos" ? renderDatos() : null,
+      tab === "acumulado"  ? renderAcumulado()  : null,
+      tab === "montecarlo" ? renderMonteCarlo() : null,
+      tab === "datos"      ? renderDatos()      : null,
       // Footer
       e("div", { style: Object.assign({}, P, { marginTop: 14, border: "1px solid #c084fc22" })},
         e("h3", { style: { fontFamily: "'DM Mono',monospace", fontSize: 11, fontWeight: 700, color: "#c084fc", margin: "0 0 5px" }},
@@ -613,8 +788,14 @@ function AFPEvaluatorV3() {
             e("strong", { style: { color: "#f3f4f6" }}, "Proyecciones"), " usan los promedios reales confirmados por la SP (Fondo A: " + PROMEDIO_SP_CONFIRMADO.A + "%, ..., E: " + PROMEDIO_SP_CONFIRMADO.E + "%), identicos para todas las AFPs. Lo que diferencia una AFP de otra es unicamente la comision."),
           e("p", { style: { margin: "0 0 5px" }},
             e("strong", { style: { color: "#f3f4f6" }}, "Acumulado historico"), " usa datos anuales reales donde los hay, y el promedio SP como fallback donde faltan. El % de datos reales se muestra en pantalla."),
-          e("p", { style: { margin: 0 }},
-            "Con los promedios confirmados, el Fondo A (" + PROMEDIO_SP_CONFIRMADO.A + "%) tiene ~1.9pp mas que el D (" + PROMEDIO_SP_CONFIRMADO.D + "%). Esa diferencia compuesta a 30 anios es enorme. Pero el A tuvo anios de -29% (2008) y el D nunca bajo de -8%. La comision es la unica variable que controlas con certeza.")
+          e("p", { style: { margin:"0 0 5px" }},
+            "Con los promedios confirmados, el Fondo A ("+PROMEDIO_SP_CONFIRMADO.A+"%) tiene ~1.9pp más que el D ("+PROMEDIO_SP_CONFIRMADO.D+"%). Esa diferencia compuesta a 30 años es enorme. Pero el A tuvo años de -29% (2008) y el D nunca bajó de -8%. La comisión es la única variable que controlas con certeza."),
+          e("p", { style: { margin:"0 0 5px" }},
+            e("strong", { style:{ color:"#f3f4f6" }}, "Monte Carlo"), " sortea años reales al azar (bootstrap) y repite la simulación 400 veces. El resultado es una distribución de saldos posibles, no un valor único. P10 = el 10% de los escenarios terminó por debajo de ese saldo (escenario adverso); P90 = el 10% terminó por encima (escenario favorable). Cuanto más ancho sea el rango P10-P90, más riesgo tiene ese fondo."),
+          e("p", { style: { margin:"0 0 5px" }},
+            e("strong", { style:{ color:"#f3f4f6" }}, "Sharpe Ratio"), " = rentabilidad media / desviación estándar (tasa libre de riesgo = 0). Mide retorno por unidad de riesgo. Un Sharpe alto significa que el fondo dio buenos retornos sin grandes oscilaciones. El Fondo A puede tener Sharpe menor al C o D porque su mayor retorno promedio viene acompañado de mucha más volatilidad."),
+          e("p", { style: { margin:0 }},
+            e("strong", { style:{ color:"#f3f4f6" }}, "Recomendación por horizonte"), " aplica la regla estándar de ciclo de vida: a más años para jubilarse, mayor tolerancia al riesgo y mayor asignación a renta variable (Fondo A/B). A medida que se acerca la jubilación, conviene migrar a fondos más conservadores (D/E) para proteger el capital acumulado del riesgo de secuencia de retornos.")
         )
       )
     )

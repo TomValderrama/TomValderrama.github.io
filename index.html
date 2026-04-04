@@ -476,7 +476,7 @@
       margin-bottom: 8px;
     }
     .project-title {
-      font-size: 16px; font-weight: 600;
+      font-size: 18px; font-weight: 600;
       color: var(--bright);
     }
     .project-badge {
@@ -558,10 +558,10 @@
   <div class="inner">
     <span class="nav-name">tomvalderrama.github.io</span>
     <div class="nav-links">
-      <a href="#showcase">visualizaciones</a>
       <a href="#proyectos">proyectos</a>
+      <a href="#showcase">visualizaciones</a>
       <a href="#skills">skills</a>
-      <a href="mailto:tomasvalderramap@gmail.com">contacto</a>
+      <a href="#sobre-mi">sobre mí</a>
     </div>
   </div>
 </nav>
@@ -581,88 +581,6 @@
       <a class="btn btn-primary" href="https://www.linkedin.com/in/tomasvalderrama" target="_blank">LinkedIn</a>
       <a class="btn btn-outline" href="https://github.com/TomValderrama" target="_blank">GitHub</a>
       <a class="btn btn-outline" href="mailto:tomasvalderramap@gmail.com">tomasvalderramap@gmail.com</a>
-    </div>
-  </div>
-</section>
-
-<!-- ── SHOWCASE ── -->
-<section id="showcase">
-  <div class="container">
-    <p class="section-tag">Visualizaciones</p>
-    <h2 class="section-title">En acción</h2>
-      <!-- Particle simulation — full width, standalone -->
-      <div class="showcase-card"
-           data-detail="La simulación sigue partículas individuales advectadas por campos de velocidad 3D del modelo oceánico CROCO-ROMS. Se lanzaron trazadores desde múltiples puntos y profundidades (0–250 m) para estudiar el rol del remolino semipermanente del Golfo de Ancud y el forzamiento mareal en el transporte de material. El campo de velocidad cambia en cada paso de tiempo; las partículas responden en tiempo real.">
-        <div class="showcase-label">Simulación lagrangiana de partículas — OpenDrift / CROCO-ROMS</div>
-        <div id="canvas-fs-wrap">
-          <canvas id="demo-canvas" class="demo-canvas" style="cursor:zoom-in" title="Click para expandir"></canvas>
-          <div id="canvas-fs-info">
-            <div id="canvas-fs-inner">
-              <p id="canvas-fs-caption"></p>
-              <div id="canvas-fs-side">
-                <span id="canvas-fs-side-title">Detalle técnico</span>
-                <p id="canvas-fs-detail"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <span id="canvas-fs-close">&#x2715;</span>
-        <p class="showcase-caption">
-          Trayectorias de trazadores lanzados desde distintos puntos del Golfo de Ancud (Tesis de Magíster).
-          Simulaciones con <strong>OpenDrift</strong> sobre campos de velocidad del modelo <strong>CROCO-ROMS</strong>.
-          La visualización de arriba es generativa; las trayectorias reales se graficaron con Matplotlib y animaciones NetCDF.
-        </p>
-      </div>
-
-      <!-- Project carousel — populated by JS -->
-      <div class="viz-carousel-wrap">
-        <button class="viz-arr" id="viz-prev" aria-label="Anterior">&#8249;</button>
-        <div class="viz-carousel" id="viz-carousel"></div>
-        <button class="viz-arr" id="viz-next" aria-label="Siguiente">&#8250;</button>
-      </div>
-  </div>
-</section>
-
-<!-- ── ABOUT ── -->
-<section id="sobre-mi">
-  <div class="container">
-    <p class="section-tag">Sobre mí</p>
-    <h2 class="section-title">Contexto y enfoque</h2>
-    <div class="about-grid">
-      <div class="about-card">
-        <h3>Formación</h3>
-        <p>
-          Magíster en Geofísica con mención en modelación y análisis de datos (UdeC, 2025).
-          Licenciatura en Geofísica (UdeC, 2021). Formación fuerte en métodos cuantitativos,
-          modelación numérica y análisis estadístico de series de tiempo.
-        </p>
-      </div>
-      <div class="about-card">
-        <h3>Trabajo actual</h3>
-        <p>
-          Ingeniero de proyectos en Pelícanos SpA, donde proceso y analizo datos de viento,
-          corrientes marinas, oxígeno y salinidad para elaboración de informes conforme
-          a NCh 1821-2020. También desarrollo herramientas en Python para automatizar
-          flujos de análisis y generación de reportes.
-        </p>
-      </div>
-      <div class="about-card">
-        <h3>Consultoría</h3>
-        <p>
-          Disponible para proyectos de análisis de datos ambientales, geoespaciales
-          y oceanográficos. Experiencia en teledetección (GEE, Sentinel-2, MODIS),
-          modelación numérica (CROCO, OpenDrift, ILLUMINA) y visualización de datos.
-        </p>
-      </div>
-      <div class="about-card">
-        <h3>Contacto</h3>
-        <p>
-          <a href="mailto:tomasvalderramap@gmail.com" style="color:var(--blue-lt);text-decoration:none">tomasvalderramap@gmail.com</a><br>
-          (+56) 982 992 783<br>
-          <a href="https://www.linkedin.com/in/tomasvalderrama" style="color:var(--blue-lt);text-decoration:none" target="_blank">linkedin.com/in/tomasvalderrama</a><br>
-          <a href="https://github.com/TomValderrama" style="color:var(--blue-lt);text-decoration:none" target="_blank">github.com/TomValderrama</a>
-        </p>
-      </div>
     </div>
   </div>
 </section>
@@ -836,6 +754,44 @@
   </div>
 </section>
 
+<!-- ── SHOWCASE ── -->
+<section id="showcase">
+  <div class="container">
+    <p class="section-tag">Visualizaciones</p>
+    <h2 class="section-title">En acción</h2>
+      <!-- Particle simulation — full width, standalone -->
+      <div class="showcase-card"
+           data-detail="La simulación sigue partículas individuales advectadas por campos de velocidad 3D del modelo oceánico CROCO-ROMS. Se lanzaron trazadores desde múltiples puntos y profundidades (0–250 m) para estudiar el rol del remolino semipermanente del Golfo de Ancud y el forzamiento mareal en el transporte de material. El campo de velocidad cambia en cada paso de tiempo; las partículas responden en tiempo real.">
+        <div class="showcase-label">Simulación lagrangiana de partículas — OpenDrift / CROCO-ROMS</div>
+        <div id="canvas-fs-wrap">
+          <canvas id="demo-canvas" class="demo-canvas" style="cursor:zoom-in" title="Click para expandir"></canvas>
+          <div id="canvas-fs-info">
+            <div id="canvas-fs-inner">
+              <p id="canvas-fs-caption"></p>
+              <div id="canvas-fs-side">
+                <span id="canvas-fs-side-title">Detalle técnico</span>
+                <p id="canvas-fs-detail"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span id="canvas-fs-close">&#x2715;</span>
+        <p class="showcase-caption">
+          Trayectorias de trazadores lanzados desde distintos puntos del Golfo de Ancud (Tesis de Magíster).
+          Simulaciones con <strong>OpenDrift</strong> sobre campos de velocidad del modelo <strong>CROCO-ROMS</strong>.
+          La visualización de arriba es generativa; las trayectorias reales se graficaron con Matplotlib y animaciones NetCDF.
+        </p>
+      </div>
+
+      <!-- Project carousel — populated by JS -->
+      <div class="viz-carousel-wrap">
+        <button class="viz-arr" id="viz-prev" aria-label="Anterior">&#8249;</button>
+        <div class="viz-carousel" id="viz-carousel"></div>
+        <button class="viz-arr" id="viz-next" aria-label="Siguiente">&#8250;</button>
+      </div>
+  </div>
+</section>
+
 <!-- ── SKILLS ── -->
 <section id="skills">
   <div class="container">
@@ -887,6 +843,41 @@
           <li>Estadística aplicada</li>
           <li>Análisis de mareas</li>
         </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="sobre-mi">
+  <div class="container">
+    <p class="section-tag">Sobre mí</p>
+    <h2 class="section-title">Contexto y enfoque</h2>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>Formación</h3>
+        <p>
+          Magíster en Geofísica con mención en modelación y análisis de datos (UdeC, 2025).
+          Licenciatura en Geofísica (UdeC, 2021). Formación fuerte en métodos cuantitativos,
+          modelación numérica y análisis estadístico de series de tiempo.
+        </p>
+      </div>
+      <div class="about-card">
+        <h3>Trabajo actual</h3>
+        <p>
+          Ingeniero de proyectos en Pelícanos SpA, donde proceso y analizo datos de viento,
+          corrientes marinas, oxígeno y salinidad para elaboración de informes conforme
+          a NCh 1821-2020. También desarrollo herramientas en Python para automatizar
+          flujos de análisis y generación de reportes.
+        </p>
+      </div>
+      <div class="about-card">
+        <h3>Consultoría</h3>
+        <p>
+          Disponible para proyectos de análisis de datos ambientales, geoespaciales
+          y oceanográficos. Experiencia en teledetección (GEE, Sentinel-2, MODIS),
+          modelación numérica (CROCO, OpenDrift, ILLUMINA) y visualización de datos.
+        </p>
       </div>
     </div>
   </div>

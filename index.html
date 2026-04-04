@@ -1253,6 +1253,18 @@
       caption: 'Análisis de cobertura espaciotemporal desarrollado como complemento al pipeline de adquisición satelital de LATLON SpA / FONDART–U. de Chile. Metadatos de ~17 700 escenas Sentinel-2 (2021–2024) obtenidos desde la API STAC de Copernicus — sin descargar imágenes ni usar Google Earth Engine.',
       detail:  'El pipeline principal (procesado de bandas NDVI, NDWI, OD) fue implementado en Google Earth Engine. Esta visualización usa solo metadatos STAC para caracterizar la densidad de cobertura disponible por tile MGRS (~100×100 km) antes del procesado. La figura principal muestra el total acumulado por tile (hasta 609 imágenes en 48 meses); la climatología agrega los 4 años por mes calendario; las figuras anuales muestran variabilidad interanual.',
     },
+    {
+      label:   'Mapas de monitoreo — Centros de cultivo marino',
+      thumb:   'assets/mapa_ces_2paneles.jpg',
+      images:  [
+        'assets/mapa_ces_antes_1.jpg',
+        'assets/mapa_ces_antes_2.jpg',
+        'assets/mapa_ces_1panel.jpg',
+        'assets/mapa_ces_2paneles.jpg',
+      ],
+      caption: 'Herramienta de escritorio en Python (~1 500 líneas) para generar mapas cartográficos de centros de cultivo marino. Reemplazó un flujo manual de Global Mapper + PowerPoint en LATLON SpA.',
+      detail:  'El flujo anterior requería buscar cada concesión en Global Mapper, dibujar el polígono, hacer pantallazos y componer la figura en PowerPoint (rosa de los vientos, etiquetas, cuadro de título). La herramienta automatiza todo el proceso: integra capas desde KMZ, shapefiles y JSON de configuración, auto-descubre equipos de monitoreo (ADCP, anemómetros, correntómetros, boyas), superpone datos ERA5 (viento, corrientes) y exporta directamente a JPG o PDF multipágina. Las primeras dos imágenes muestran el producto anterior; las siguientes, el resultado automatizado.',
+    },
   ];
 
   // Construir slides del carrusel

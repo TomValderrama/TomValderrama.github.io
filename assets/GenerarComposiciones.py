@@ -17,35 +17,67 @@ BG  = "#0a0c10"
 DPI = 150
 
 PARES = [
+    # comparación contexto: varios paneles vs 2 paneles
     {
         "nombre":  "E. Filomena",
-        "antes":   "mapa_ces_antes_2.jpg",
-        "despues": "mapa_ces_1panel.jpg",
+        "antes":   "mapa_ces_antes_1.jpg",
+        "despues": "mapa_ces_2paneles.jpg",
         "out":     "comp_filomena.jpg",
     },
     {
         "nombre":  "Errázuriz",
-        "antes":   "mapa_ces_errazuriz_antes_1.jpg",
-        "despues": "mapa_ces_errazuriz_1panel.jpg",
+        "antes":   "mapa_ces_errazuriz_antes_2.jpg",
+        "despues": "mapa_ces_errazuriz_2paneles.jpg",
         "out":     "comp_errazuriz.jpg",
     },
     {
         "nombre":  "Estero Magdalena",
-        "antes":   "mapa_ces_esteromagdalena_antes_2.jpg",
-        "despues": "mapa_ces_esteromagdalena_1panel.jpg",
+        "antes":   "mapa_ces_esteromagdalena_antes_1.jpg",
+        "despues": "mapa_ces_esteromagdalena_2paneles.jpg",
         "out":     "comp_esteromagdalena.jpg",
     },
     {
         "nombre":  "San Francisco",
-        "antes":   "mapa_ces_san_francisco_antes_2.jpg",
-        "despues": "mapa_ces_san_francisco_1panel.jpg",
+        "antes":   "mapa_ces_san_francisco_antes_1.jpg",
+        "despues": "mapa_ces_san_francisco_2paneles.jpg",
         "out":     "comp_san_francisco.jpg",
     },
     {
         "nombre":  "Elefantes",
+        "antes":   "mapa_ces_elefantes_antes_1.jpg",
+        "despues": "mapa_ces_elefantes_2paneles.jpg",
+        "out":     "comp_elefantes.jpg",
+    },
+    # comparación zoom: 1 panel vs 1 panel
+    {
+        "nombre":  "E. Filomena (zoom)",
+        "antes":   "mapa_ces_antes_2.jpg",
+        "despues": "mapa_ces_1panel.jpg",
+        "out":     "comp_filomena_zoom.jpg",
+    },
+    {
+        "nombre":  "Errázuriz (zoom)",
+        "antes":   "mapa_ces_errazuriz_antes_1.jpg",
+        "despues": "mapa_ces_errazuriz_1panel.jpg",
+        "out":     "comp_errazuriz_zoom.jpg",
+    },
+    {
+        "nombre":  "Estero Magdalena (zoom)",
+        "antes":   "mapa_ces_esteromagdalena_antes_2.jpg",
+        "despues": "mapa_ces_esteromagdalena_1panel.jpg",
+        "out":     "comp_esteromagdalena_zoom.jpg",
+    },
+    {
+        "nombre":  "San Francisco (zoom)",
+        "antes":   "mapa_ces_san_francisco_antes_2.jpg",
+        "despues": "mapa_ces_san_francisco_1panel.jpg",
+        "out":     "comp_san_francisco_zoom.jpg",
+    },
+    {
+        "nombre":  "Elefantes (zoom)",
         "antes":   "mapa_ces_elefantes_antes_2.jpg",
         "despues": "mapa_ces_elefantes_1panel.jpg",
-        "out":     "comp_elefantes.jpg",
+        "out":     "comp_elefantes_zoom.jpg",
     },
 ]
 

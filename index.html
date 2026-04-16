@@ -1250,6 +1250,13 @@
       detail:  'El pipeline principal (procesado de bandas NDVI, NDWI, OD) fue implementado en Google Earth Engine. Esta visualización usa solo metadatos STAC para caracterizar la densidad de cobertura disponible por tile MGRS (~100×100 km) antes del procesado. La figura principal muestra el total acumulado por tile (hasta 609 imágenes en 48 meses); la climatología agrega los 4 años por mes calendario; las figuras anuales muestran variabilidad interanual.',
     },
     {
+      label:   'Perfil diario mensual de viento — rediseño',
+      thumb:   'assets/perfil_viento_despues.png',
+      images:  ['assets/perfil_viento_antes.jpg', 'assets/perfil_viento_despues.png'],
+      caption: 'Rediseño de la figura de perfil horario-mensual de viento para informes anuales (Pelícanos Oceanografía, Ene 2026). La primera imagen muestra el formato anterior; la segunda, el rediseño.',
+      detail:  'Antes: 3 paneles separados — serie horaria de velocidad por mes, heatmap de velocidad y heatmap de dirección. Requería integrar mentalmente tres figuras para leer el patrón completo.\n\nDespués: un único heatmap mes × hora donde el color representa la velocidad promedio (escala jet, 0–7.5 m/s) y las flechas de dirección se superponen sobre cada celda. Las flechas aparecen solo si la frecuencia de apariciones hacia esa dirección supera el 25% del total por hora; el tamaño de cada flecha es proporcional a esa frecuencia.\n\nStack: Python, matplotlib (pcolormesh + quiver), pandas groupby, análisis circular de viento.',
+    },
+    {
       label:   'Mapas de monitoreo — Centros de cultivo marino',
       thumb:   'assets/comp_filomena.jpg',
       images:  [

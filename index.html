@@ -131,11 +131,27 @@
       display: flex; align-items: center; gap: 10px;
       margin-top: 16px;
     }
+    .viz-carousel-mask {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+    .viz-carousel-mask::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 80px;
+      background: linear-gradient(to right, transparent, var(--bg) 90%);
+      pointer-events: none;
+      z-index: 2;
+    }
     .viz-carousel {
       display: flex; gap: 12px;
-      overflow-x: hidden; flex: 1;
+      overflow-x: scroll;
+      scrollbar-width: none;
       scroll-behavior: smooth;
     }
+    .viz-carousel::-webkit-scrollbar { display: none; }
     .viz-slide {
       flex: 0 0 240px;
       background: var(--surface);
@@ -789,7 +805,9 @@
       <!-- Project carousel — populated by JS -->
       <div class="viz-carousel-wrap">
         <button class="viz-arr" id="viz-prev" aria-label="Anterior">&#8249;</button>
-        <div class="viz-carousel" id="viz-carousel"></div>
+        <div class="viz-carousel-mask">
+          <div class="viz-carousel" id="viz-carousel"></div>
+        </div>
         <button class="viz-arr" id="viz-next" aria-label="Siguiente">&#8250;</button>
       </div>
   </div>

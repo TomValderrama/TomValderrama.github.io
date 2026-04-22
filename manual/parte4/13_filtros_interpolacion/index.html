@@ -1824,6 +1824,7 @@
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">fc_high</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">11</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">)</span>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="n">marea_M2</span> <span class="o">=</span> <span class="n">filtro_banda</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">fc_low</span><span class="p">,</span> <span class="n">fc_high</span><span class="p">)</span>
 </code></pre></div>
+<p><img alt="Filtro Butterworth paso bajo — señal original vs filtrada" src="../../img/filtro_butterworth.png" /></p>
 <h2 id="interpolacion-de-nan">Interpolación de NaN</h2>
 <h3 id="interpolacion-lineal-con-pandas">Interpolación lineal con pandas</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Interpolar NaN por interpolación lineal (por defecto)</span>

@@ -557,6 +557,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#atajos-de-edicion-esenciales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atajos de edición esenciales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#celdas-de-codigo" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -597,6 +608,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Configuración recomendada">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuando-usar-cada-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuándo usar cada backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1534,6 +1562,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#atajos-de-edicion-esenciales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atajos de edición esenciales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#celdas-de-codigo" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1574,6 +1613,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Configuración recomendada">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuando-usar-cada-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuándo usar cada backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1645,6 +1701,42 @@
 </tr>
 </tbody>
 </table>
+<h2 id="atajos-de-edicion-esenciales">Atajos de edición esenciales</h2>
+<table>
+<thead>
+<tr>
+<th>Acción</th>
+<th>Atajo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Comentar / descomentar selección</td>
+<td><code>Ctrl + 1</code></td>
+</tr>
+<tr>
+<td>Insertar separador de celda <code># %%</code></td>
+<td><code>Ctrl + 2</code></td>
+</tr>
+<tr>
+<td>Duplicar línea</td>
+<td><code>Ctrl + D</code></td>
+</tr>
+<tr>
+<td>Mover línea arriba / abajo</td>
+<td><code>Alt + ↑ / ↓</code></td>
+</tr>
+<tr>
+<td>Buscar en el archivo</td>
+<td><code>Ctrl + F</code></td>
+</tr>
+<tr>
+<td>Ir a definición de función</td>
+<td><code>Ctrl + G</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>Ctrl + 1</code> es especialmente útil para desactivar temporalmente un bloque de código sin borrarlo. <code>Ctrl + 2</code> inserta un <code># %%</code> en la posición del cursor, creando una nueva celda ejecutable en ese punto.</p>
 <h2 id="celdas-de-codigo">Celdas de código</h2>
 <p>Las celdas permiten dividir el script en bloques ejecutables de forma independiente, similar a un notebook pero dentro de un archivo <code>.py</code> normal.</p>
 <p>Se definen con <code># %%</code>:</p>
@@ -1683,12 +1775,41 @@
 <p>Algunas opciones útiles en <strong>Tools → Preferences</strong>:</p>
 <ul>
 <li><strong>Editor → mostrar números de línea</strong>: facilita depuración</li>
-<li><strong>IPython console → Graphics → Backend: Inline</strong>: los gráficos aparecen en la consola</li>
-<li><strong>IPython console → Graphics → Backend: Qt5</strong>: los gráficos aparecen en ventana separada (más útil para revisar figuras en detalle)</li>
+<li><strong>IPython console → Graphics → Backend: Inline</strong>: los gráficos aparecen en la consola (recomendado para análisis)</li>
+<li><strong>IPython console → Graphics → Backend: Tkinter</strong>: cada gráfico abre en ventana separada, liviana e interactiva (zoom, pan, guardar)</li>
+<li><strong>IPython console → Graphics → Backend: Qt5</strong>: similar a Tkinter pero más pesado; en algunos equipos es lento o inestable</li>
 </ul>
+<p>También se puede cambiar el backend por sesión desde la consola sin tocar las preferencias:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>   <span class="c1"># figuras en consola</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="o">%</span><span class="n">matplotlib</span> <span class="n">tk</span>       <span class="c1"># ventana Tkinter interactiva</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="o">%</span><span class="n">matplotlib</span> <span class="n">qt5</span>      <span class="c1"># ventana Qt5</span>
+</code></pre></div>
+<h3 id="cuando-usar-cada-backend">Cuándo usar cada backend</h3>
+<table>
+<thead>
+<tr>
+<th>Situación</th>
+<th>Backend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Explorar datos, iterar rápido</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>Revisar figura con zoom o hacer clics sobre ella</td>
+<td>Tkinter</td>
+</tr>
+<tr>
+<td>Script automático que solo guarda PNG</td>
+<td><code>matplotlib.use('Agg')</code> antes de importar pyplot</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition tip">
-<p class="admonition-title">Consejo</p>
-<p>Para análisis de datos oceanográficos conviene usar <strong>Qt5</strong> como backend gráfico: permite hacer zoom, guardar y redimensionar las figuras interactivamente.</p>
+<p class="admonition-title">Recomendación</p>
+<p>Usar <strong>Inline</strong> como predeterminado. Cambiar a <strong>Tkinter</strong> cuando se necesita interactividad (zoom, edición de puntos, inspector de coordenadas). Qt5 solo vale la pena si Tkinter falla o se necesitan widgets más complejos.</p>
 </div>
 
 

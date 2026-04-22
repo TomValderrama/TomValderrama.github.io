@@ -9,7 +9,7 @@
         <meta name="description" content="Manual práctico de Python aplicado al procesamiento de datos oceanográficos">
       
       
-        <meta name="author" content="Pelícanos Oceanografía">
+        <meta name="author" content="Tomás Valderrama">
       
       
         <link rel="canonical" href="https://tomvalderrama.github.io/manual/parte5/16_importacion_dinamica/">
@@ -1488,7 +1488,7 @@
 
 
 <h1 id="importacion-dinamica">Importación dinámica</h1>
-<p>En el pipeline de Pelícanos el autoinforme es un script genérico que puede procesar cualquier campaña. La configuración específica de cada proyecto (rutas, parámetros, profundidades, nombre de empresa) vive en un módulo Python separado que se carga en tiempo de ejecución según el nombre del proyecto. Esto elimina la necesidad de editar el script central cada vez que se agrega una nueva campaña.</p>
+<p>El autoinforme es un script genérico que puede procesar cualquier campaña. La configuración específica de cada proyecto (rutas, parámetros, profundidades, nombre de empresa) vive en un módulo Python separado que se carga en tiempo de ejecución según el nombre del proyecto. Esto elimina la necesidad de editar el script central cada vez que se agrega una nueva campaña.</p>
 <h2 id="el-problema-configuracion-por-proyecto">El problema: configuración por proyecto</h2>
 <p>Sin importación dinámica, el script tendría bloques <code>if/elif</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># MAL: requiere modificar el script central para cada proyecto</span>

@@ -9,7 +9,7 @@
         <meta name="description" content="Manual práctico de Python aplicado al procesamiento de datos oceanográficos">
       
       
-        <meta name="author" content="Pelícanos Oceanografía">
+        <meta name="author" content="Tomás Valderrama">
       
       
         <link rel="canonical" href="https://tomvalderrama.github.io/manual/parte5/14_python_docx/">
@@ -1554,7 +1554,7 @@
 
 
 <h1 id="python-docx">python-docx</h1>
-<p><code>python-docx</code> permite crear y modificar documentos Word (<code>.docx</code>) desde Python. En el pipeline de Pelícanos se usa para generar el informe final: rellenar texto, insertar figuras, construir tablas y aplicar formato, todo a partir de una plantilla base.</p>
+<p><code>python-docx</code> permite crear y modificar documentos Word (<code>.docx</code>) desde Python. Se usa para generar informes automáticamente: rellenar texto, insertar figuras, construir tablas y aplicar formato, todo a partir de una plantilla base.</p>
 <h2 id="instalacion">Instalación</h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip install python-docx
 </code></pre></div>
@@ -1677,7 +1677,7 @@
 <a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">run</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">Pt</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
 <a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
 <a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="n">run2</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">add_run</span><span class="p">(</span><span class="s1">&#39;0.62 m/s&#39;</span><span class="p">)</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="n">run2</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">rgb</span> <span class="o">=</span> <span class="n">RGBColor</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x5B</span><span class="p">,</span> <span class="mh">0x96</span><span class="p">)</span>   <span class="c1"># azul Pelícanos</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="n">run2</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">rgb</span> <span class="o">=</span> <span class="n">RGBColor</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x5B</span><span class="p">,</span> <span class="mh">0x96</span><span class="p">)</span>
 <a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="n">run2</span><span class="o">.</span><span class="n">bold</span> <span class="o">=</span> <span class="kc">True</span>
 </code></pre></div>
 <h2 id="iterar-sobre-cuerpo-completo-parrafos-tablas">Iterar sobre cuerpo completo (párrafos + tablas)</h2>
@@ -1743,7 +1743,7 @@
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Estilos y plantilla</p>
-<p>Los estilos de Word (Título 1, Normal, Tabla Grid) están definidos en la plantilla. Si se crea un documento desde cero con <code>Document()</code>, los estilos por defecto de python-docx son distintos a los del template de Pelícanos. Siempre trabajar sobre la plantilla para conservar los estilos visuales del informe.</p>
+<p>Los estilos de Word (Título 1, Normal, Tabla Grid) están definidos en la plantilla. Si se crea un documento desde cero con <code>Document()</code>, los estilos por defecto de python-docx son distintos a los del template corporativo. Siempre trabajar sobre la plantilla para conservar los estilos visuales del informe.</p>
 </div>
 
 

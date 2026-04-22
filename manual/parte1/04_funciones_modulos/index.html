@@ -9,7 +9,7 @@
         <meta name="description" content="Manual práctico de Python aplicado al procesamiento de datos oceanográficos">
       
       
-        <meta name="author" content="Pelícanos Oceanografía">
+        <meta name="author" content="Tomás Valderrama">
       
       
         <link rel="canonical" href="https://tomvalderrama.github.io/manual/parte1/04_funciones_modulos/">
@@ -1623,7 +1623,7 @@
 
 <h1 id="funciones-y-modulos">Funciones y módulos</h1>
 <h2 id="funciones">Funciones</h2>
-<p>Una función agrupa código reutilizable bajo un nombre. En el pipeline de Pelícanos casi toda la lógica está organizada en funciones: una para leer datos, otra para filtrar, otra para graficar, etc.</p>
+<p>Una función agrupa código reutilizable bajo un nombre. En un pipeline de procesamiento de datos casi toda la lógica está organizada en funciones: una para leer datos, otra para filtrar, otra para graficar, etc.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span> <span class="nf">calcular_media_vectorial</span><span class="p">(</span><span class="n">velocidades</span><span class="p">,</span> <span class="n">direcciones</span><span class="p">):</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcula la dirección y velocidad resultante del vector medio.&quot;&quot;&quot;</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1708,7 +1708,7 @@
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="kn">from</span> <span class="nn">mi_modulo</span> <span class="kn">import</span> <span class="n">mi_funcion</span>
 </code></pre></div>
-<p>Esto se usa constantemente en el pipeline de Pelícanos, por ejemplo en <code>run_pipeline.py</code> para cargar los módulos de procesamiento de cada instrumento.</p>
+<p>Esto se usa constantemente en el pipeline de procesamiento, por ejemplo en <code>run_pipeline.py</code> para cargar los módulos de cada instrumento.</p>
 <h3 id="importlib-carga-dinamica">importlib — carga dinámica</h3>
 <p>Cuando la ruta del módulo se conoce solo en tiempo de ejecución (por ejemplo, depende de qué proyecto se está procesando), se usa <code>importlib</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span> <span class="nn">importlib.util</span>
@@ -1724,7 +1724,7 @@
 <a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="n">parrafo_viento</span> <span class="o">=</span> <span class="n">notas</span><span class="o">.</span><span class="n">parrafo_viento</span>
 </code></pre></div>
 <h2 id="organizar-codigo-en-modulos">Organizar código en módulos</h2>
-<p>A medida que los scripts crecen, conviene separar el código en archivos temáticos. La estructura del módulo <code>ocean_data_analysis</code> de Pelícanos es un buen ejemplo:</p>
+<p>A medida que los scripts crecen, conviene separar el código en archivos temáticos. Un ejemplo de estructura para un proyecto de análisis oceanográfico:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ocean_data_analysis/
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>├── __init__.py
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>├── read_data.py          ← funciones de lectura

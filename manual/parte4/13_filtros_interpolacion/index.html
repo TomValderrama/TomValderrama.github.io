@@ -9,7 +9,7 @@
         <meta name="description" content="Manual práctico de Python aplicado al procesamiento de datos oceanográficos">
       
       
-        <meta name="author" content="Pelícanos Oceanografía">
+        <meta name="author" content="Tomás Valderrama">
       
       
         <link rel="canonical" href="https://tomvalderrama.github.io/manual/parte4/13_filtros_interpolacion/">
@@ -1656,7 +1656,7 @@
 
 
 <h1 id="filtros-e-interpolacion">Filtros e interpolación</h1>
-<p>Los datos oceanográficos rara vez llegan limpios: tienen ruido de alta frecuencia, datos faltantes (NaN) y resolución temporal variable. El filtrado elimina frecuencias no deseadas; la interpolación rellena huecos; el remuestreo homogeneiza la resolución temporal. Estas tres operaciones son parte estándar del preprocesamiento en el pipeline de Pelícanos.</p>
+<p>Los datos oceanográficos rara vez llegan limpios: tienen ruido de alta frecuencia, datos faltantes (NaN) y resolución temporal variable. El filtrado elimina frecuencias no deseadas; la interpolación rellena huecos; el remuestreo homogeneiza la resolución temporal. Estas tres operaciones son parte estándar de cualquier pipeline de preprocesamiento.</p>
 <h2 id="media-movil-filtro-de-paso-bajo-simple">Media móvil (filtro de paso bajo simple)</h2>
 <p>Es el filtro más sencillo y el más rápido de aplicar con pandas:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>

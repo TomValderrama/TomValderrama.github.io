@@ -1013,6 +1013,78 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#reiniciar-el-kernel-y-el-estado-de-la-sesion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reiniciar el kernel y el estado de la sesión
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reiniciar el kernel y el estado de la sesión">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limpiar-consola-vs-reiniciar-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limpiar consola vs reiniciar kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-problema-del-estado-acumulado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El problema del estado acumulado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuando-reiniciar-el-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuándo reiniciar el kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reset-limpiar-el-namespace-sin-reiniciar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        %reset — limpiar el namespace sin reiniciar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambios-en-el-codigo-y-cuando-re-ejecutar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cambios en el código y cuándo re-ejecutar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#errores-silenciosos" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2329,6 +2401,78 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#reiniciar-el-kernel-y-el-estado-de-la-sesion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reiniciar el kernel y el estado de la sesión
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reiniciar el kernel y el estado de la sesión">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limpiar-consola-vs-reiniciar-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limpiar consola vs reiniciar kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-problema-del-estado-acumulado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El problema del estado acumulado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuando-reiniciar-el-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuándo reiniciar el kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reset-limpiar-el-namespace-sin-reiniciar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        %reset — limpiar el namespace sin reiniciar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambios-en-el-codigo-y-cuando-re-ejecutar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cambios en el código y cuándo re-ejecutar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#errores-silenciosos" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2586,21 +2730,87 @@
 <a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>14:32:03  INFO      OK  ene2025.csv  (8928 filas)
 </code></pre></div></p>
 <p><strong>Cuándo usar logging en vez de print</strong>: cuando el script corre automáticamente (por ejemplo, desde un cron o un bat), cuando se necesita guardar el historial de ejecuciones, o cuando se quiere poder aumentar el nivel de detalle (<code>DEBUG</code>) sin modificar el código.</p>
+<h2 id="reiniciar-el-kernel-y-el-estado-de-la-sesion">Reiniciar el kernel y el estado de la sesión</h2>
+<h3 id="limpiar-consola-vs-reiniciar-kernel">Limpiar consola vs reiniciar kernel</h3>
+<p>Son dos operaciones distintas que confunden al principio:</p>
+<p><strong>Limpiar la consola</strong> (<code>Ctrl+L</code>, o escribir <code>%clear</code>) borra el texto visible — outputs, errores impresos, historial. El namespace de variables <strong>no cambia</strong>: <code>df</code>, <code>velocidades</code>, <code>resultado</code> siguen existiendo en memoria.</p>
+<p><strong>Reiniciar el kernel</strong> (<code>Ctrl+.</code> en Spyder, o menú <strong>Consolas → Reiniciar kernel</strong>) termina el proceso Python y arranca uno nuevo. El namespace queda completamente vacío. Es equivalente a cerrar Python y abrirlo de nuevo.</p>
+<h3 id="el-problema-del-estado-acumulado">El problema del estado acumulado</h3>
+<p>En Spyder se ejecutan celdas en cualquier orden, se prueban cosas en la consola y se vuelve a correr solo una parte del script. Con el tiempo el namespace acumula variables de corridas anteriores que el script actual nunca definió — pero como ya están en memoria, no aparece error.</p>
+<p>El síntoma clásico:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># El script &quot;funciona&quot; en Spyder...</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="n">resultado</span> <span class="o">=</span> <span class="n">calcular</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>   <span class="c1"># df existe porque la cargaste antes en la consola</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># ...pero falla al correrlo con F5 desde cero, o desde la terminal:</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="c1"># NameError: name &#39;df&#39; is not defined</span>
+</code></pre></div>
+<p><strong>Regla práctica</strong>: si el script funciona celda por celda pero falla al correr con <code>F5</code> desde cero, hay estado acumulado. Reiniciar el kernel y volver a correr <code>F5</code> revela qué falta realmente.</p>
+<h3 id="cuando-reiniciar-el-kernel">Cuándo reiniciar el kernel</h3>
+<table>
+<thead>
+<tr>
+<th>Situación</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Script falla con <code>NameError</code> al correr <code>F5</code> completo</td>
+<td>Reiniciar kernel → <code>F5</code></td>
+</tr>
+<tr>
+<td>Modificaste una función y el cambio no tiene efecto</td>
+<td>Reiniciar kernel o <code>%reset</code></td>
+</tr>
+<tr>
+<td>Cambiaste <code>%matplotlib</code> backend y no responde</td>
+<td>Reiniciar kernel</td>
+</tr>
+<tr>
+<td>Variables grandes consumen demasiada RAM</td>
+<td>Reiniciar kernel</td>
+</tr>
+<tr>
+<td>Quieres verificar que el script es reproducible</td>
+<td>Reiniciar kernel → <code>F5</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="reset-limpiar-el-namespace-sin-reiniciar">%reset — limpiar el namespace sin reiniciar</h3>
+<p><code>%reset</code> limpia las variables pero mantiene el intérprete activo. Más rápido que reiniciar el kernel cuando solo se quiere empezar con un namespace limpio:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="o">%</span><span class="n">reset</span>        <span class="c1"># pide confirmación</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="o">%</span><span class="n">reset</span> <span class="o">-</span><span class="n">f</span>     <span class="c1"># fuerza sin confirmación (más cómodo)</span>
+</code></pre></div>
+<h3 id="cambios-en-el-codigo-y-cuando-re-ejecutar">Cambios en el código y cuándo re-ejecutar</h3>
+<p><strong>Si modificás una función en el mismo script</strong>: re-ejecutar la celda que la define reemplaza la definición en el namespace. Con <code>F5</code> se re-ejecuta todo el script y todas las definiciones quedan actualizadas.</p>
+<p><strong>Si modificás un módulo importado</strong> (<code>from utils import calcular</code>): volver a ejecutar el <code>import</code> no recarga el módulo — Python lo tiene en caché. Hay que forzar la recarga:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kn">import</span> <span class="nn">importlib</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="kn">import</span> <span class="nn">utils</span>                  <span class="c1"># importación inicial</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="c1"># Después de editar utils.py en el editor:</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">utils</span><span class="p">)</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">calcular</span>    <span class="c1"># ahora usa la versión actualizada</span>
+</code></pre></div>
+<p>O desde la consola de Spyder, más directo:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="o">%</span><span class="n">run</span> <span class="n">utils</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># ejecuta el archivo y actualiza el namespace con lo que define</span>
+</code></pre></div>
+<p><strong>Si modificás una clase</strong>: las instancias ya creadas no se actualizan al recargar el módulo. Hay que reiniciar el kernel para que las nuevas instancias usen la clase modificada.</p>
+<p><strong>Regla general</strong>: si cambiaste el código y el comportamiento no cambió, es casi siempre porque Python sigue usando la versión anterior en caché. La solución más segura y más rápida de verificar es siempre: reiniciar kernel → <code>F5</code>.</p>
 <h2 id="errores-silenciosos">Errores silenciosos</h2>
 <p>Los más difíciles de detectar son los que no producen error pero dan un resultado incorrecto. Ejemplos frecuentes:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># División entera en vez de float (Python 2 vs 3)</span>
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="mi">7</span> <span class="o">/</span> <span class="mi">2</span>    <span class="c1"># 3.5 en Python 3 — correcto</span>
-<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="mi">7</span> <span class="o">//</span> <span class="mi">2</span>   <span class="c1"># 3   — si esto era lo que querías, bien; si no, error silencioso</span>
-<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>
-<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="c1"># NaN que se propagan sin aviso</span>
-<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="n">velocidad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
-<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">velocidad</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>   <span class="c1"># nan — no hay error, pero el resultado es inútil</span>
-<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">velocidad</span><span class="p">))</span>  <span class="c1"># 2.0 — correcto</span>
-<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>
-<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="c1"># Filtrado que elimina más datos de los esperados</span>
-<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="n">df_filtrado</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span>
-<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="c1"># Si df_filtrado está vacío, las operaciones siguientes dan NaN o error lejano</span>
-<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filas después de filtrar: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_filtrado</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># verificar siempre</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># División entera en vez de float (Python 2 vs 3)</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="mi">7</span> <span class="o">/</span> <span class="mi">2</span>    <span class="c1"># 3.5 en Python 3 — correcto</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="mi">7</span> <span class="o">//</span> <span class="mi">2</span>   <span class="c1"># 3   — si esto era lo que querías, bien; si no, error silencioso</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="c1"># NaN que se propagan sin aviso</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="n">velocidad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">velocidad</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>   <span class="c1"># nan — no hay error, pero el resultado es inútil</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">velocidad</span><span class="p">))</span>  <span class="c1"># 2.0 — correcto</span>
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="c1"># Filtrado que elimina más datos de los esperados</span>
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="n">df_filtrado</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span>
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a><span class="c1"># Si df_filtrado está vacío, las operaciones siguientes dan NaN o error lejano</span>
+<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filas después de filtrar: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_filtrado</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># verificar siempre</span>
 </code></pre></div>
 
 

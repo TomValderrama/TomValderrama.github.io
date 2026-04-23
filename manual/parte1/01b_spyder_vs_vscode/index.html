@@ -781,6 +781,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Flujo mixto recomendado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuando-salir-del-ide-y-correr-desde-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuándo salir del IDE y correr desde terminal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2137,6 +2154,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Flujo mixto recomendado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuando-salir-del-ide-y-correr-desde-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuándo salir del IDE y correr desde terminal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2415,6 +2449,21 @@
 <li><strong>Git en VSCode</strong>: commits, diffs visuales, historial — independientemente de dónde se escribió el código.</li>
 </ol>
 <p>El código funciona igual en ambos entornos. Lo que cambia es qué tan cómodo es cada flujo de trabajo según la etapa del proyecto.</p>
+<h3 id="cuando-salir-del-ide-y-correr-desde-terminal">Cuándo salir del IDE y correr desde terminal</h3>
+<p>Hay casos en que Spyder y VSCode se interponen en vez de ayudar:</p>
+<ul>
+<li><strong>Script con menú de procesamiento</strong> (<code>input()</code> en un loop): Spyder ejecuta en un kernel IPython que no maneja bien la entrada interactiva en modo batch.</li>
+<li><strong>GUI propia con matplotlib o Tkinter</strong>: el IDE ya tiene un event loop corriendo; abrir otro genera conflictos. TkAgg suele funcionar en Spyder con <code>%matplotlib tk</code>, pero Qt5Agg frecuentemente no.</li>
+<li><strong>Combinación de ambos</strong> (menú + ventana gráfica): ningún backend funciona de forma confiable dentro del IDE.</li>
+</ul>
+<p>En esos casos la solución es correr el script directamente desde una terminal:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># PowerShell o cmd (usa el Python de Windows, TkAgg nativo)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>python<span class="w"> </span>mi_script.py
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Terminal WSL (requiere WSLg en Windows 11, o un servidor X en Windows 10)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>python<span class="w"> </span>mi_script.py
+</code></pre></div>
+<p>El script toma control del proceso completo: puede pedir input, abrir ventanas y cerrarlas sin conflicto con el IDE. Ver cap. 10b para el patrón <code>plt.ion()</code> + <code>plt.pause()</code> que permite combinar un menú de texto con figuras interactivas.</p>
 
 
 

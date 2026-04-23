@@ -53,6 +53,8 @@
       
     
     
+      <link rel="stylesheet" href="../extra.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -1766,6 +1768,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#herramientas-y-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Herramientas y entorno
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#numpy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1848,6 +1861,17 @@
     <span class="md-ellipsis">
       
         Python
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-y-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Herramientas y entorno
       
     </span>
   </a>
@@ -1956,6 +1980,22 @@
 <p><strong>excepción</strong>
 : Error en tiempo de ejecución. Se captura con <code>try / except</code>. Los tipos más comunes: <code>FileNotFoundError</code>, <code>KeyError</code> (clave inexistente en dict), <code>IndexError</code> (índice fuera de rango), <code>TypeError</code> (tipo incorrecto), <code>ValueError</code> (valor inválido).</p>
 <hr />
+<h2 id="herramientas-y-entorno">Herramientas y entorno</h2>
+<p><strong>entorno virtual</strong>
+: Instalación aislada de Python con sus propios paquetes, independiente del sistema global. Permite que distintos proyectos usen versiones distintas de las mismas librerías sin conflictos.</p>
+<p><strong>conda</strong>
+: Gestor de paquetes y entornos incluido en Anaconda. A diferencia de pip, resuelve dependencias binarias (C, Fortran) además de Python. Comandos principales: <code>conda create</code>, <code>conda activate</code>, <code>conda install</code>, <code>conda env export</code>.</p>
+<p><strong>pip</strong>
+: Gestor de paquetes oficial de Python. Instala desde PyPI. Se usa junto con conda para paquetes que no están en los repositorios de conda.</p>
+<p><strong>environment.yml</strong>
+: Archivo YAML que describe un entorno conda: nombre, canales, y lista de paquetes con versiones exactas. Se genera con <code>conda env export</code> y permite recrear el entorno exacto en otro equipo con <code>conda env create -f environment.yml</code>.</p>
+<p><strong>YAML</strong> (<em>YAML Ain't Markup Language</em>)
+: Formato de texto para configuración y datos estructurados. Más legible que JSON: no usa comillas en strings simples y admite comentarios con <code>#</code>. Estándar para archivos de configuración de proyectos y pipelines. Se lee en Python con <code>yaml.safe_load()</code> del paquete <code>pyyaml</code>.</p>
+<p><strong>tqdm</strong>
+: Librería para barras de progreso. Envuelve cualquier iterable: <code>for x in tqdm(lista)</code> muestra una barra con porcentaje, velocidad y tiempo estimado. Especialmente útil en loops que procesan decenas o cientos de archivos.</p>
+<p><strong>logging</strong>
+: Módulo de la librería estándar de Python para registrar mensajes de diagnóstico. A diferencia de <code>print</code>, cada mensaje tiene timestamp y nivel de severidad (<code>DEBUG</code>, <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>). Permite escribir simultáneamente a consola y a un archivo de log sin modificar el código.</p>
+<hr />
 <h2 id="numpy">NumPy</h2>
 <p><strong>array</strong>
 : Estructura de datos central de NumPy. Arreglo multidimensional de elementos del mismo tipo. A diferencia de una lista, permite operaciones matemáticas directas sobre todos sus elementos sin loop.</p>
@@ -1987,6 +2027,16 @@
 : Cambiar la resolución temporal de una serie. <code>df.resample('1h').mean()</code> agrupa en ventanas de 1 hora y calcula la media de cada una.</p>
 <p><strong>groupby</strong>
 : Divide el DataFrame en grupos según el valor de una columna, aplica una función a cada grupo y combina los resultados. Equivalente a una tabla dinámica por categoría.</p>
+<p><strong>rolling</strong>
+: Ventana deslizante sobre una Serie temporal. <code>df['vel'].rolling('1h').mean()</code> calcula la media del último hora en cada punto. Se usa para suavizar series con ruido de alta frecuencia.</p>
+<p><strong>pd.cut</strong>
+: Divide una columna continua en intervalos discretos con etiquetas. <code>pd.cut(df['vel'], bins=[0, 0.1, 0.5, 1.0], labels=['calma','leve','fuerte'])</code> asigna una categoría a cada valor. Se usa para construir tablas de incidencia velocidad × dirección.</p>
+<p><strong>merge</strong>
+: Une dos DataFrames por una columna común, equivalente a un JOIN de SQL. El parámetro <code>how</code> controla qué filas se conservan: <code>inner</code> (solo matches), <code>left</code> (todas las del primero), <code>outer</code> (todas las de ambos).</p>
+<p><strong>concat</strong>
+: Apila DataFrames con la misma estructura vertialmente (más filas) u horizontalmente (más columnas). Se usa para unir datos de distintos períodos antes de calcular estadísticas globales.</p>
+<p><strong>pathlib.Path</strong>
+: Clase de la librería estándar para manejar rutas de archivos de forma orientada a objetos y multiplataforma. <code>Path('/ruta') / 'subcarpeta' / 'archivo.csv'</code> construye rutas sin concatenar strings con <code>/</code> o <code>os.path.join</code>.</p>
 <hr />
 <h2 id="visualizacion">Visualización</h2>
 <p><strong>Figure</strong>
@@ -1994,7 +2044,19 @@
 <p><strong>Axes</strong>
 : El panel de dibujo dentro de una Figure. Contiene los ejes X e Y, los datos graficados, etiquetas y leyenda. Una Figure puede tener varios Axes (subplots).</p>
 <p><strong>backend</strong>
-: Motor que matplotlib usa para mostrar figuras. <code>Inline</code>: figuras en la consola de Spyder. <code>Tkinter</code>: ventana interactiva separada. <code>Agg</code>: sin ventana, solo para guardar archivos (útil en scripts automáticos).</p>
+: Motor que matplotlib usa para renderizar y mostrar figuras. <code>Agg</code>: sin ventana, renderiza a memoria (para guardar archivos). <code>TkAgg</code>: ventana Tkinter interactiva, estable en Spyder. <code>Qt5Agg</code>: ventana Qt5, puede interferir con el event loop de Spyder. <code>inline</code>: hook de IPython sobre Agg que embebe la figura como imagen en la consola.</p>
+<p><strong>event loop</strong>
+: Bucle de escucha continua de eventos (clics, teclado, redimensionado) que necesita cualquier ventana de escritorio para responder al usuario. Python solo puede correr un event loop a la vez en el hilo principal, por eso <code>plt.show()</code> bloquea la ejecución hasta que se cierra la ventana.</p>
+<p><strong>matplotlib.widgets</strong>
+: Módulo de matplotlib que provee controles interactivos dentro del canvas de una figura: <code>Slider</code>, <code>Button</code>, <code>CheckButtons</code>, <code>RadioButtons</code>. No requieren construir una aplicación Qt o Tk completa, pero están limitados al espacio del gráfico.</p>
+<p><strong>FuncAnimation</strong>
+: Clase de <code>matplotlib.animation</code> que crea animaciones llamando repetidamente a una función de actualización. El resultado se puede mostrar en vivo o exportar como GIF (requiere pillow) o MP4 (requiere ffmpeg).</p>
+<p><strong>GridSpec</strong>
+: Clase de <code>matplotlib.gridspec</code> para layouts de subplots con tamaños desiguales. Permite definir <code>height_ratios</code> y <code>width_ratios</code> para que algunos paneles sean más grandes que otros, y posicionar cada Axes en celdas arbitrarias de la grilla.</p>
+<p><strong>twin axes</strong>
+: Técnica de matplotlib para superponer dos variables con escalas distintas en el mismo panel. <code>ax2 = ax1.twinx()</code> crea un eje Y derecho que comparte el eje X con el izquierdo. Útil para comparar velocidad y temperatura en la misma serie temporal.</p>
+<p><strong>PyQt5</strong>
+: Librería para construir aplicaciones de escritorio completas en Python usando el framework Qt5. Permite crear ventanas con menús, botones y tablas, y embeber matplotlib como un widget (<code>FigureCanvasQTAgg</code>). Más potente que <code>matplotlib.widgets</code> pero más complejo. Los scripts PyQt5 deben correrse fuera de Spyder.</p>
 <hr />
 <h2 id="formatos-y-estandares">Formatos y estándares</h2>
 <p><strong>NetCDF</strong> (<code>.nc</code>)

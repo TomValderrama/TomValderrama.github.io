@@ -2538,7 +2538,6 @@
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>           <span class="c1"># directorio actual desde donde corre el script</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;datos.csv&#39;</span><span class="p">))</span>  <span class="c1"># True/False</span>
 </code></pre></div></p>
-<hr />
 <h3 id="keyerror-clave-o-columna-inexistente"><code>KeyError</code> — clave o columna inexistente</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidat&#39;</span><span class="p">]</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># KeyError: &#39;velocidat&#39;</span>
@@ -2547,14 +2546,12 @@
 <p><strong>Diagnóstico</strong>:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>   <span class="c1"># ver exactamente qué columnas hay</span>
 </code></pre></div></p>
-<hr />
 <h3 id="indexerror-indice-fuera-de-rango"><code>IndexError</code> — índice fuera de rango</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">lista</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">lista</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># IndexError: list index out of range</span>
 </code></pre></div>
 <p><strong>Causa</strong>: se intenta acceder a una posición que no existe. Recuerda que el índice máximo es <code>len(lista) - 1</code>.</p>
-<hr />
 <h3 id="typeerror-tipo-incorrecto-para-la-operacion"><code>TypeError</code> — tipo incorrecto para la operación</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="s2">&quot;Profundidad: &quot;</span> <span class="o">+</span> <span class="mi">7</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># TypeError: can only concatenate str (not &quot;int&quot;) to str</span>
@@ -2563,7 +2560,6 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="s2">&quot;Profundidad: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>      <span class="c1"># OK</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="sa">f</span><span class="s2">&quot;Profundidad: </span><span class="si">{</span><span class="mi">7</span><span class="si">}</span><span class="s2">&quot;</span>           <span class="c1"># OK con f-string</span>
 </code></pre></div>
-<hr />
 <h3 id="valueerror-valor-incorrecto-aunque-el-tipo-es-correcto"><code>ValueError</code> — valor incorrecto aunque el tipo es correcto</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;3.5&quot;</span><span class="p">)</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="c1"># ValueError: invalid literal for int() with base 10: &#39;3.5&#39;</span>
@@ -2572,27 +2568,23 @@
 <a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1"># ValueError: ...</span>
 </code></pre></div>
 <p><strong>Causa</strong>: el tipo es correcto (es un string) pero el contenido no es válido para la operación pedida.</p>
-<hr />
 <h3 id="attributeerror-atributo-o-metodo-inexistente"><code>AttributeError</code> — atributo o método inexistente</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">lista</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">lista</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1"># AttributeError: &#39;list&#39; object has no attribute &#39;mean&#39;</span>
 </code></pre></div>
 <p><strong>Causa</strong>: se llama un método que no existe en ese tipo. <code>.mean()</code> existe en arrays NumPy y Series de pandas, no en listas de Python.</p>
-<hr />
 <h3 id="nameerror-variable-no-definida"><code>NameError</code> — variable no definida</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">resultado</span><span class="p">)</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="c1"># NameError: name &#39;resultado&#39; is not defined</span>
 </code></pre></div>
 <p><strong>Causa</strong>: la variable nunca fue asignada, o la celda que la define no se ejecutó todavía.</p>
-<hr />
 <h3 id="indentationerror-indentacion-incorrecta"><code>IndentationError</code> — indentación incorrecta</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">if</span> <span class="n">velocidad</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;positivo&quot;</span><span class="p">)</span>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># IndentationError: expected an indented block</span>
 </code></pre></div>
 <p><strong>Causa</strong>: falta la indentación después de <code>if</code>, <code>for</code>, <code>def</code>, etc.</p>
-<hr />
 <h3 id="modulenotfounderror-libreria-no-instalada"><code>ModuleNotFoundError</code> — librería no instalada</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">import</span> <span class="nn">xarray</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># ModuleNotFoundError: No module named &#39;xarray&#39;</span>

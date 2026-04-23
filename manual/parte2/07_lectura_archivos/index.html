@@ -574,6 +574,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../parte1/01c_entornos_conda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entornos virtuales con conda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../parte1/02_sintaxis/" class="md-nav__link">
         
   
@@ -950,6 +978,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#archivos-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Archivos YAML
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Archivos YAML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configyaml-para-un-proyecto-oceanografico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        config.yaml para un proyecto oceanográfico
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#archivos-json" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1160,6 +1216,34 @@
     
   
     Figuras para informes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte3/10b_graficos_interactivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gráficos interactivos y el event loop
   
 
     
@@ -1980,6 +2064,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#archivos-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Archivos YAML
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Archivos YAML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configyaml-para-un-proyecto-oceanografico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        config.yaml para un proyecto oceanográfico
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#archivos-json" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2124,7 +2236,7 @@
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ! No se encontró la hoja &#39;</span><span class="si">{</span><span class="n">hoja</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="archivos-matlab-mat">Archivos MATLAB (.mat)</h2>
-<p>Los datos del equipo de oleaje STORM2 (Nortek) se exportan en formato <code>.mat</code>. Se leen con <code>scipy.io</code>:</p>
+<p>Algunos instrumentos oceanográficos (sensores de oleaje, perfiladores) exportan datos en formato <code>.mat</code>. Se leen con <code>scipy.io</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">mat</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;datos_storm2.mat&#39;</span><span class="p">)</span>
@@ -2147,111 +2259,166 @@
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
 <a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">timestamps</span> <span class="o">=</span> <span class="n">matlab_datenum_a_datetime</span><span class="p">(</span><span class="n">tiempo</span><span class="p">)</span>
 </code></pre></div>
+<h2 id="archivos-yaml">Archivos YAML</h2>
+<p>YAML es un formato de configuración más legible que JSON: no usa comillas en los strings simples, admite comentarios con <code>#</code>, y su indentación lo hace más natural para estructuras anidadas. Es el estándar para archivos de configuración de proyectos y pipelines.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>conda<span class="w"> </span>install<span class="w"> </span>pyyaml<span class="w">    </span><span class="c1"># o: pip install pyyaml</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span> <span class="nn">yaml</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># Leer</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>    <span class="c1"># safe_load evita ejecución de código arbitrario</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">empresa</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;empresa&#39;</span><span class="p">]</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">ruta</span>    <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rutas&#39;</span><span class="p">][</span><span class="s1">&#39;datos&#39;</span><span class="p">]</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># Guardar</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">allow_unicode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="configyaml-para-un-proyecto-oceanografico">config.yaml para un proyecto oceanográfico</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Configuración del proyecto — editar aquí, no en el código</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nt">proyecto</span><span class="p">:</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">empresa</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;Compas</span><span class="nv"> </span><span class="s">Marine&quot;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="nt">centro</span><span class="p">:</span><span class="w">   </span><span class="s">&quot;Los</span><span class="nv"> </span><span class="s">Vilos&quot;</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">campana</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;oct2025&quot;</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nt">rutas</span><span class="p">:</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">  </span><span class="nt">datos</span><span class="p">:</span><span class="w">    </span><span class="s">&quot;/mnt/c/Users/Usuario/proyectos/los_vilos/datos&quot;</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">  </span><span class="nt">figuras</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;/mnt/c/Users/Usuario/proyectos/los_vilos/figuras&quot;</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">  </span><span class="nt">informe</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;/mnt/c/Users/Usuario/proyectos/los_vilos/informe&quot;</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="nt">instrumentos</span><span class="p">:</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">  </span><span class="nt">adcp</span><span class="p">:</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">    </span><span class="nt">archivo</span><span class="p">:</span><span class="w">       </span><span class="s">&quot;corrientes_adcp.csv&quot;</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">    </span><span class="nt">profundidades</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">9</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">11</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">13</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">15</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">17</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">19</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">21</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">23</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">  </span><span class="nt">viento</span><span class="p">:</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">    </span><span class="nt">archivo</span><span class="p">:</span><span class="w">       </span><span class="s">&quot;viento_boya.csv&quot;</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="nt">parametros</span><span class="p">:</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">  </span><span class="nt">velocidad_max_corte</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.5</span><span class="w">    </span><span class="c1"># m/s — valores sobre este umbral son outliers</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">  </span><span class="nt">suavizado_horas</span><span class="p">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">      </span><span class="c1"># ventana de rolling en horas</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Usar en el pipeline</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">import</span> <span class="nn">yaml</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">cfg</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="n">ruta_datos</span>  <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;rutas&#39;</span><span class="p">][</span><span class="s1">&#39;datos&#39;</span><span class="p">])</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="n">prof_adcp</span>   <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;instrumentos&#39;</span><span class="p">][</span><span class="s1">&#39;adcp&#39;</span><span class="p">][</span><span class="s1">&#39;profundidades&#39;</span><span class="p">]</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="n">vel_max</span>     <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;parametros&#39;</span><span class="p">][</span><span class="s1">&#39;velocidad_max_corte&#39;</span><span class="p">]</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ruta_datos</span> <span class="o">/</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;instrumentos&#39;</span><span class="p">][</span><span class="s1">&#39;adcp&#39;</span><span class="p">][</span><span class="s1">&#39;archivo&#39;</span><span class="p">])</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">vel_max</span><span class="p">]</span>
+</code></pre></div>
+<p>La ventaja sobre rutas hardcodeadas: el mismo script corre para cualquier proyecto cambiando solo el <code>config.yaml</code>. No hay que tocar el código.</p>
 <h2 id="archivos-json">Archivos JSON</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span> <span class="nn">json</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># Leer</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;config.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">empresa</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;empresa&#39;</span><span class="p">]</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># Guardar</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;estado.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span> <span class="nn">json</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1"># Leer</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;config.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="n">empresa</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;empresa&#39;</span><span class="p">]</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="c1"># Guardar</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;estado.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="archivos-de-texto-plano">Archivos de texto plano</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Leer completo</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;notas.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">contenido</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># Leer línea por línea</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;log.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="k">for</span> <span class="n">linea</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">linea</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># Escribir</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;resultado.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Velocidad máxima: 0.6 m/s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Profundidad: 7 m</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Leer completo</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;notas.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">contenido</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># Leer línea por línea</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;log.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="k">for</span> <span class="n">linea</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">linea</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1"># Escribir</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;resultado.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Velocidad máxima: 0.6 m/s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Profundidad: 7 m</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="buscar-archivos-con-glob-y-os">Buscar archivos con glob y os</h2>
 <p>En el pipeline es frecuente buscar archivos por patrón sin saber el nombre exacto:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span> <span class="nn">glob</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">import</span> <span class="nn">os</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Todos los Excel en una carpeta</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">archivos</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/ruta/carpeta/*.xlsx&#39;</span><span class="p">)</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># Recursivo (busca en subcarpetas también)</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">archivos</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/ruta/**/*.xlsx&#39;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># Filtrar con condición</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="n">excels_corrientes</span> <span class="o">=</span> <span class="p">[</span>
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/ruta/*.xlsx&#39;</span><span class="p">)</span>
-<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>    <span class="k">if</span> <span class="s1">&#39;corriente&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="p">]</span>
-<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
-<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="c1"># Listar archivos y carpetas</span>
-<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;/ruta/carpeta&#39;</span><span class="p">)</span>
-<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>
-<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="c1"># Verificar si existe</span>
-<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/ruta/archivo.csv&#39;</span><span class="p">)</span>
-<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>
-<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="c1"># Construir rutas de forma segura (funciona en Windows y Linux)</span>
-<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="n">ruta</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;/ruta/base&#39;</span><span class="p">,</span> <span class="s1">&#39;subcarpeta&#39;</span><span class="p">,</span> <span class="s1">&#39;archivo.csv&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">import</span> <span class="nn">glob</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">import</span> <span class="nn">os</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Todos los Excel en una carpeta</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="n">archivos</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/ruta/carpeta/*.xlsx&#39;</span><span class="p">)</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># Recursivo (busca en subcarpetas también)</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="n">archivos</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/ruta/**/*.xlsx&#39;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="c1"># Filtrar con condición</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="n">excels_corrientes</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>    <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/ruta/*.xlsx&#39;</span><span class="p">)</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>    <span class="k">if</span> <span class="s1">&#39;corriente&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="p">]</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="c1"># Listar archivos y carpetas</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;/ruta/carpeta&#39;</span><span class="p">)</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="c1"># Verificar si existe</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/ruta/archivo.csv&#39;</span><span class="p">)</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="c1"># Construir rutas de forma segura (funciona en Windows y Linux)</span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="n">ruta</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;/ruta/base&#39;</span><span class="p">,</span> <span class="s1">&#39;subcarpeta&#39;</span><span class="p">,</span> <span class="s1">&#39;archivo.csv&#39;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="documentos-word-docx">Documentos Word (.docx)</h2>
 <p>Python-docx permite leer texto desde documentos Word, útil para extraer metadata de informes anteriores:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span> <span class="nn">docx</span> <span class="kn">import</span> <span class="n">Document</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">Document</span><span class="p">(</span><span class="s1">&#39;informe.docx&#39;</span><span class="p">)</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1"># Leer todos los párrafos</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="k">for</span> <span class="n">parrafo</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">paragraphs</span><span class="p">:</span>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="k">if</span> <span class="n">parrafo</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">parrafo</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="c1"># Leer tablas</span>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="k">for</span> <span class="n">tabla</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">tabla</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>        <span class="n">celdas</span> <span class="o">=</span> <span class="p">[</span><span class="n">celda</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">celda</span> <span class="ow">in</span> <span class="n">fila</span><span class="o">.</span><span class="n">cells</span><span class="p">]</span>
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">celdas</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span> <span class="nn">docx</span> <span class="kn">import</span> <span class="n">Document</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">Document</span><span class="p">(</span><span class="s1">&#39;informe.docx&#39;</span><span class="p">)</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># Leer todos los párrafos</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="k">for</span> <span class="n">parrafo</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">paragraphs</span><span class="p">:</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="k">if</span> <span class="n">parrafo</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">parrafo</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="c1"># Leer tablas</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="k">for</span> <span class="n">tabla</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>    <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">tabla</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>        <span class="n">celdas</span> <span class="o">=</span> <span class="p">[</span><span class="n">celda</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">celda</span> <span class="ow">in</span> <span class="n">fila</span><span class="o">.</span><span class="n">cells</span><span class="p">]</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">celdas</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="leer-docx-sin-python-docx-xml-directo">Leer .docx sin python-docx (XML directo)</h3>
 <p>Para extraer texto con más control, el <code>.docx</code> es en realidad un archivo ZIP con XML adentro:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span> <span class="nn">zipfile</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">import</span> <span class="nn">re</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">def</span> <span class="nf">extraer_texto_docx</span><span class="p">(</span><span class="n">ruta</span><span class="p">):</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">ruta</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="n">xml</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;word/document.xml&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    <span class="c1"># Eliminar etiquetas XML</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;[^&gt;]+&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">xml</span><span class="p">)</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>    <span class="k">return</span> <span class="n">texto</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">import</span> <span class="nn">zipfile</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kn">import</span> <span class="nn">re</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="k">def</span> <span class="nf">extraer_texto_docx</span><span class="p">(</span><span class="n">ruta</span><span class="p">):</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">ruta</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>        <span class="n">xml</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;word/document.xml&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    <span class="c1"># Eliminar etiquetas XML</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;[^&gt;]+&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">xml</span><span class="p">)</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    <span class="k">return</span> <span class="n">texto</span>
 </code></pre></div>
 <h2 id="manejo-de-rutas-con-pathlib">Manejo de rutas con pathlib</h2>
 <p>La librería <code>pathlib</code> ofrece una forma más moderna de trabajar con rutas:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">carpeta</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/ruta/a/mis/datos&#39;</span><span class="p">)</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">archivo</span> <span class="o">=</span> <span class="n">carpeta</span> <span class="o">/</span> <span class="s1">&#39;campana_oct2025&#39;</span> <span class="o">/</span> <span class="s1">&#39;corrientes.csv&#39;</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="n">archivo</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>        <span class="c1"># True/False</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="n">archivo</span><span class="o">.</span><span class="n">suffix</span>          <span class="c1"># &#39;.csv&#39;</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="n">archivo</span><span class="o">.</span><span class="n">stem</span>            <span class="c1"># &#39;corrientes&#39;</span>
-<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="n">archivo</span><span class="o">.</span><span class="n">parent</span>          <span class="c1"># carpeta Los Vilos</span>
-<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="n">archivo</span><span class="o">.</span><span class="n">name</span>            <span class="c1"># &#39;corrientes.csv&#39;</span>
-<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
-<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="c1"># Listar archivos</span>
-<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="nb">list</span><span class="p">(</span><span class="n">carpeta</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*.xlsx&#39;</span><span class="p">))</span>
-<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="nb">list</span><span class="p">(</span><span class="n">carpeta</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s1">&#39;*.csv&#39;</span><span class="p">))</span>   <span class="c1"># recursivo</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="n">carpeta</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/ruta/a/mis/datos&#39;</span><span class="p">)</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="n">archivo</span> <span class="o">=</span> <span class="n">carpeta</span> <span class="o">/</span> <span class="s1">&#39;campana_oct2025&#39;</span> <span class="o">/</span> <span class="s1">&#39;corrientes.csv&#39;</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="n">archivo</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>        <span class="c1"># True/False</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="n">archivo</span><span class="o">.</span><span class="n">suffix</span>          <span class="c1"># &#39;.csv&#39;</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="n">archivo</span><span class="o">.</span><span class="n">stem</span>            <span class="c1"># &#39;corrientes&#39;</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="n">archivo</span><span class="o">.</span><span class="n">parent</span>          <span class="c1"># carpeta Los Vilos</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="n">archivo</span><span class="o">.</span><span class="n">name</span>            <span class="c1"># &#39;corrientes.csv&#39;</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="c1"># Listar archivos</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="nb">list</span><span class="p">(</span><span class="n">carpeta</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*.xlsx&#39;</span><span class="p">))</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="nb">list</span><span class="p">(</span><span class="n">carpeta</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s1">&#39;*.csv&#39;</span><span class="p">))</span>   <span class="c1"># recursivo</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Rutas en Windows desde WSL</p>
 <p>Al usar Python desde WSL (Windows Subsystem for Linux), las rutas de Windows se acceden como <code>/mnt/c/...</code>. Las rutas con espacios deben ir entre comillas o manejarse con <code>Path</code>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">ruta</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/mnt/c/Users/Usuario/Mi Carpeta/archivo.csv&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">ruta</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/mnt/c/Users/Usuario/Mi Carpeta/archivo.csv&#39;</span><span class="p">)</span>
 </code></pre></div></p>
 </div>
 

@@ -579,6 +579,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../01c_entornos_conda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entornos virtuales con conda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../02_sintaxis/" class="md-nav__link">
         
   
@@ -972,6 +1000,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#logging-alternativa-a-print-para-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        logging — alternativa a print para pipelines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#errores-silenciosos" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1264,6 +1303,34 @@
     
   
     Figuras para informes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte3/10b_graficos_interactivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gráficos interactivos y el event loop
   
 
     
@@ -2249,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#logging-alternativa-a-print-para-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        logging — alternativa a print para pipelines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#errores-silenciosos" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2466,21 +2544,61 @@
 <a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="k">assert</span> <span class="s1">&#39;velocidad&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Columna &#39;velocidad&#39; no encontrada. Columnas: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
 <p>Si la condición es falsa, Python lanza un <code>AssertionError</code> con el mensaje — más claro que esperar a que falle más adelante.</p>
+<h2 id="logging-alternativa-a-print-para-pipelines">logging — alternativa a print para pipelines</h2>
+<p><code>print</code> es suficiente para exploración interactiva. En un pipeline automático que corre sin supervisión, <code>logging</code> tiene ventajas concretas: cada mensaje tiene timestamp, nivel de severidad, y se puede escribir a un archivo sin tocar el código.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kn">import</span> <span class="nn">logging</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># Configuración básica — una sola vez al inicio del script</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1">  </span><span class="si">%(levelname)-8s</span><span class="s1">  </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>    <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">,</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>    <span class="n">handlers</span><span class="o">=</span><span class="p">[</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(),</span>                        <span class="c1"># consola</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>        <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="s1">&#39;pipeline.log&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>       <span class="c1"># archivo</span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>    <span class="p">]</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="p">)</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Usar en el código en vez de print</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Detalle interno útil para debugging&#39;</span><span class="p">)</span>      <span class="c1"># solo visible en nivel DEBUG</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Leyendo archivo corrientes_oct2024.csv&#39;</span><span class="p">)</span>    <span class="c1"># progreso normal</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Columna &quot;dir&quot; tiene 3</span><span class="si">% d</span><span class="s1">e NaN&#39;</span><span class="p">)</span>         <span class="c1"># algo inesperado pero no fatal</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No se encontró el archivo de viento&#39;</span><span class="p">)</span>     <span class="c1"># error que impide continuar</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Patrón para el pipeline de archivos</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">for</span> <span class="n">archivo</span> <span class="ow">in</span> <span class="n">archivos</span><span class="p">:</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">archivo</span><span class="p">)</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;OK  </span><span class="si">{</span><span class="n">archivo</span><span class="si">}</span><span class="s1">  (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s1"> filas)&#39;</span><span class="p">)</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No encontrado: </span><span class="si">{</span><span class="n">archivo</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error en </span><span class="si">{</span><span class="n">archivo</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>Salida en consola y en <code>pipeline.log</code>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>14:32:01  INFO      OK  oct2024.csv  (8640 filas)
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>14:32:02  INFO      OK  nov2024.csv  (8352 filas)
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>14:32:02  WARNING   No encontrado: dic2024.csv
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>14:32:03  INFO      OK  ene2025.csv  (8928 filas)
+</code></pre></div></p>
+<p><strong>Cuándo usar logging en vez de print</strong>: cuando el script corre automáticamente (por ejemplo, desde un cron o un bat), cuando se necesita guardar el historial de ejecuciones, o cuando se quiere poder aumentar el nivel de detalle (<code>DEBUG</code>) sin modificar el código.</p>
 <h2 id="errores-silenciosos">Errores silenciosos</h2>
 <p>Los más difíciles de detectar son los que no producen error pero dan un resultado incorrecto. Ejemplos frecuentes:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># División entera en vez de float (Python 2 vs 3)</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="mi">7</span> <span class="o">/</span> <span class="mi">2</span>    <span class="c1"># 3.5 en Python 3 — correcto</span>
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="mi">7</span> <span class="o">//</span> <span class="mi">2</span>   <span class="c1"># 3   — si esto era lo que querías, bien; si no, error silencioso</span>
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="c1"># NaN que se propagan sin aviso</span>
-<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="n">velocidad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
-<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">velocidad</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>   <span class="c1"># nan — no hay error, pero el resultado es inútil</span>
-<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">velocidad</span><span class="p">))</span>  <span class="c1"># 2.0 — correcto</span>
-<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>
-<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="c1"># Filtrado que elimina más datos de los esperados</span>
-<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="n">df_filtrado</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span>
-<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="c1"># Si df_filtrado está vacío, las operaciones siguientes dan NaN o error lejano</span>
-<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filas después de filtrar: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_filtrado</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># verificar siempre</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># División entera en vez de float (Python 2 vs 3)</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="mi">7</span> <span class="o">/</span> <span class="mi">2</span>    <span class="c1"># 3.5 en Python 3 — correcto</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="mi">7</span> <span class="o">//</span> <span class="mi">2</span>   <span class="c1"># 3   — si esto era lo que querías, bien; si no, error silencioso</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="c1"># NaN que se propagan sin aviso</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="n">velocidad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">velocidad</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>   <span class="c1"># nan — no hay error, pero el resultado es inútil</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">velocidad</span><span class="p">))</span>  <span class="c1"># 2.0 — correcto</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="c1"># Filtrado que elimina más datos de los esperados</span>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="n">df_filtrado</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="c1"># Si df_filtrado está vacío, las operaciones siguientes dan NaN o error lejano</span>
+<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filas después de filtrar: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_filtrado</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># verificar siempre</span>
 </code></pre></div>
 
 

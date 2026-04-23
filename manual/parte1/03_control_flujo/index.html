@@ -789,8 +789,41 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#zip-recorrer-dos-listas-en-paralelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        zip() — recorrer dos listas en paralelo
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dict-comprehensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dict comprehensions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#any-y-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        any() y all()
+      
+    </span>
+  </a>
   
 </li>
       
@@ -940,6 +973,34 @@
     
   
     Funciones y módulos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04b_debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errores y debugging
   
 
     
@@ -2084,8 +2145,41 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#zip-recorrer-dos-listas-en-paralelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        zip() — recorrer dos listas en paralelo
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dict-comprehensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dict comprehensions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#any-y-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        any() y all()
+      
+    </span>
+  </a>
   
 </li>
       
@@ -2309,121 +2403,171 @@
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">import</span> <span class="nn">os</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">archivos</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">carpeta</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.xlsx&#39;</span><span class="p">)]</span>
 </code></pre></div>
+<h3 id="zip-recorrer-dos-listas-en-paralelo">zip() — recorrer dos listas en paralelo</h3>
+<p><code>zip()</code> empareja dos o más listas elemento a elemento. Devuelve pares <code>(a, b)</code> mientras duren ambas listas:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">profundidades</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">velocidades</span>   <span class="o">=</span> <span class="p">[</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.60</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">]</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">for</span> <span class="n">prof</span><span class="p">,</span> <span class="n">vel</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">profundidades</span><span class="p">,</span> <span class="n">velocidades</span><span class="p">):</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prof</span><span class="si">}</span><span class="s2"> m → </span><span class="si">{</span><span class="n">vel</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> m/s&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># También funciona para construir un diccionario</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">prof_vel</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">profundidades</span><span class="p">,</span> <span class="n">velocidades</span><span class="p">))</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="c1"># {3: 0.08, 5: 0.12, 7: 0.6, 9: 0.07}</span>
+</code></pre></div>
+<p>Si las listas tienen distinto largo, <code>zip</code> se detiene en la más corta — sin error, sin aviso.</p>
+<h2 id="dict-comprehensions">Dict comprehensions</h2>
+<p>Las comprehensions también funcionan para diccionarios:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">profundidades</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">velocidades</span>   <span class="o">=</span> <span class="p">[</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.60</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">]</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Diccionario profundidad → velocidad</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">prof_vel</span> <span class="o">=</span> <span class="p">{</span><span class="n">prof</span><span class="p">:</span> <span class="n">vel</span> <span class="k">for</span> <span class="n">prof</span><span class="p">,</span> <span class="n">vel</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">profundidades</span><span class="p">,</span> <span class="n">velocidades</span><span class="p">)}</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1"># {3: 0.08, 5: 0.12, 7: 0.6, 9: 0.07, 11: 0.09}</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># Filtrado: solo profundidades con velocidad alta</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="n">alertas</span> <span class="o">=</span> <span class="p">{</span><span class="n">prof</span><span class="p">:</span> <span class="n">vel</span> <span class="k">for</span> <span class="n">prof</span><span class="p">,</span> <span class="n">vel</span> <span class="ow">in</span> <span class="n">prof_vel</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">vel</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">}</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1"># {7: 0.6}</span>
+</code></pre></div>
+<p>La forma <code>{clave: valor for ... in ...}</code> es análoga a la list comprehension <code>[valor for ... in ...]</code> pero produce un diccionario en vez de una lista.</p>
+<h2 id="any-y-all">any() y all()</h2>
+<p>Dos funciones que verifican condiciones sobre listas o arrays enteros, sin escribir un loop:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">velocidades</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.60</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">]</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nb">any</span><span class="p">(</span><span class="n">v</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">velocidades</span><span class="p">)</span>   <span class="c1"># True — ¿alguno supera 0.5?</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nb">all</span><span class="p">(</span><span class="n">v</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">velocidades</span><span class="p">)</span>   <span class="c1"># True — ¿todos son positivos?</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nb">all</span><span class="p">(</span><span class="n">v</span> <span class="o">&lt;</span> <span class="mf">1.0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">velocidades</span><span class="p">)</span>   <span class="c1"># True — ¿ninguno supera 1 m/s?</span>
+</code></pre></div>
+<p>Con NumPy/Pandas el resultado es directo sin el generador:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">vel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.60</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">])</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">vel</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span>   <span class="c1"># True</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">vel</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)</span>   <span class="c1"># True</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># Con pandas Series</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>   <span class="c1"># True si alguna fila cumple</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>   <span class="c1"># True si todas las filas cumplen</span>
+</code></pre></div>
+<p>Muy útil para validar datos antes de procesarlos:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">assert</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="s2">&quot;Hay velocidades negativas — revisar datos&quot;</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tiempo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span>   <span class="s2">&quot;Hay timestamps nulos&quot;</span>
+</code></pre></div>
 <h2 id="manejo-de-errores-try-except">Manejo de errores: try / except</h2>
 <p>Fundamental cuando se leen archivos o datos que pueden estar incompletos o corruptos:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;corrientes.csv&#39;</span><span class="p">)</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Archivo no encontrado&quot;</span><span class="p">)</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error inesperado: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;corrientes.csv&#39;</span><span class="p">)</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Archivo no encontrado&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error inesperado: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="finally-codigo-que-siempre-se-ejecuta">finally — código que siempre se ejecuta</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="n">archivo</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;datos.txt&#39;</span><span class="p">)</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">datos</span> <span class="o">=</span> <span class="n">archivo</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No se encontró el archivo&quot;</span><span class="p">)</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="k">finally</span><span class="p">:</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Proceso terminado&quot;</span><span class="p">)</span>  <span class="c1"># se ejecuta siempre</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="n">archivo</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;datos.txt&#39;</span><span class="p">)</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">datos</span> <span class="o">=</span> <span class="n">archivo</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No se encontró el archivo&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="k">finally</span><span class="p">:</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Proceso terminado&quot;</span><span class="p">)</span>  <span class="c1"># se ejecuta siempre</span>
 </code></pre></div>
 <h3 id="ejemplo-real-del-pipeline_1">Ejemplo real del pipeline</h3>
 <p>En el código de automatización de informes, el try/except se usa para detectar si un archivo de figuras existe antes de intentar insertarlo en el Word:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="n">doc</span><span class="o">.</span><span class="n">paragraphs</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">runs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add_picture</span><span class="p">(</span><span class="n">ruta_figura</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">ancho</span><span class="p">)</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ! No se pudo insertar figura: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    <span class="n">doc</span><span class="o">.</span><span class="n">paragraphs</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">runs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add_picture</span><span class="p">(</span><span class="n">ruta_figura</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">ancho</span><span class="p">)</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ! No se pudo insertar figura: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="combinando-estructuras">Combinando estructuras</h2>
 <p>Donde el control de flujo se vuelve útil de verdad es cuando se combinan varias capas. Las estructuras individuales son simples; la habilidad está en encadenarlas para resolver problemas reales.</p>
 <h3 id="for-if-filtrar-mientras-se-itera">for + if: filtrar mientras se itera</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">profundidades</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">23</span><span class="p">]</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">velocidades</span>   <span class="o">=</span> <span class="p">[</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">]</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Recorrer dos listas a la vez con zip()</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">for</span> <span class="n">prof</span><span class="p">,</span> <span class="n">vel</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">profundidades</span><span class="p">,</span> <span class="n">velocidades</span><span class="p">):</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="k">if</span> <span class="n">vel</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Alerta en </span><span class="si">{</span><span class="n">prof</span><span class="si">}</span><span class="s2"> m: velocidad = </span><span class="si">{</span><span class="n">vel</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> m/s&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">profundidades</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">23</span><span class="p">]</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">velocidades</span>   <span class="o">=</span> <span class="p">[</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">]</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># Recorrer dos listas a la vez con zip()</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="k">for</span> <span class="n">prof</span><span class="p">,</span> <span class="n">vel</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">profundidades</span><span class="p">,</span> <span class="n">velocidades</span><span class="p">):</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="k">if</span> <span class="n">vel</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Alerta en </span><span class="si">{</span><span class="n">prof</span><span class="si">}</span><span class="s2"> m: velocidad = </span><span class="si">{</span><span class="n">vel</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> m/s&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p><code>zip()</code> empareja dos listas elemento a elemento: en cada vuelta del for, <code>prof</code> y <code>vel</code> corresponden al mismo índice.</p>
 <h3 id="for-if-acumulador-encontrar-el-maximo-con-contexto">for + if + acumulador: encontrar el máximo con contexto</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">maxima</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">prof_maxima</span> <span class="o">=</span> <span class="kc">None</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="k">for</span> <span class="n">prof</span><span class="p">,</span> <span class="n">vel</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">profundidades</span><span class="p">,</span> <span class="n">velocidades</span><span class="p">):</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="k">if</span> <span class="n">vel</span> <span class="o">&gt;</span> <span class="n">maxima</span><span class="p">:</span>
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>        <span class="n">maxima</span> <span class="o">=</span> <span class="n">vel</span>
-<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>        <span class="n">prof_maxima</span> <span class="o">=</span> <span class="n">prof</span>
-<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>
-<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Velocidad máxima: </span><span class="si">{</span><span class="n">maxima</span><span class="si">}</span><span class="s2"> m/s a </span><span class="si">{</span><span class="n">prof_maxima</span><span class="si">}</span><span class="s2"> m de profundidad&quot;</span><span class="p">)</span>
-<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="c1"># → Velocidad máxima: 0.6 m/s a 7 m de profundidad</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">maxima</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">prof_maxima</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="k">for</span> <span class="n">prof</span><span class="p">,</span> <span class="n">vel</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">profundidades</span><span class="p">,</span> <span class="n">velocidades</span><span class="p">):</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="k">if</span> <span class="n">vel</span> <span class="o">&gt;</span> <span class="n">maxima</span><span class="p">:</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>        <span class="n">maxima</span> <span class="o">=</span> <span class="n">vel</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>        <span class="n">prof_maxima</span> <span class="o">=</span> <span class="n">prof</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Velocidad máxima: </span><span class="si">{</span><span class="n">maxima</span><span class="si">}</span><span class="s2"> m/s a </span><span class="si">{</span><span class="n">prof_maxima</span><span class="si">}</span><span class="s2"> m de profundidad&quot;</span><span class="p">)</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="c1"># → Velocidad máxima: 0.6 m/s a 7 m de profundidad</span>
 </code></pre></div>
 <p>El acumulador (<code>maxima</code>, <code>prof_maxima</code>) guarda el resultado parcial mientras el loop avanza. Al terminar, tiene la respuesta final.</p>
 <h3 id="for-tryexcept-procesar-lotes-sin-que-un-error-detenga-todo">for + try/except: procesar lotes sin que un error detenga todo</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="n">archivos</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;oct2024.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;nov2024.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;dic_corrupto.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;ene2025.csv&#39;</span><span class="p">]</span>
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="n">dataframes</span> <span class="o">=</span> <span class="p">[]</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>
-<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="k">for</span> <span class="n">nombre</span> <span class="ow">in</span> <span class="n">archivos</span><span class="p">:</span>
-<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>    <span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">nombre</span><span class="p">)</span>
-<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>        <span class="n">dataframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;OK: </span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2"> filas)&quot;</span><span class="p">)</span>
-<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ! No encontrado: </span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ! Error en </span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>
-<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="n">df_total</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dataframes</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="n">archivos</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;oct2024.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;nov2024.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;dic_corrupto.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;ene2025.csv&#39;</span><span class="p">]</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="n">dataframes</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="k">for</span> <span class="n">nombre</span> <span class="ow">in</span> <span class="n">archivos</span><span class="p">:</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">nombre</span><span class="p">)</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>        <span class="n">dataframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;OK: </span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2"> filas)&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ! No encontrado: </span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ! Error en </span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="n">df_total</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dataframes</span><span class="p">)</span>
 </code></pre></div>
 <p>Sin el <code>try/except</code>, el primer archivo problemático detendría el script y perderías los datos buenos que venían después. Con él, el loop sigue y al final tienes todo lo que se pudo leer.</p>
 <h3 id="for-anidado-recorrer-filas-y-columnas">for anidado: recorrer filas y columnas</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">profundidades</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">meses</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;oct&#39;</span><span class="p">,</span> <span class="s1">&#39;nov&#39;</span><span class="p">,</span> <span class="s1">&#39;dic&#39;</span><span class="p">]</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="k">for</span> <span class="n">mes</span> <span class="ow">in</span> <span class="n">meses</span><span class="p">:</span>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="k">for</span> <span class="n">prof</span> <span class="ow">in</span> <span class="n">profundidades</span><span class="p">:</span>
-<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>        <span class="c1"># aquí iría la lógica para cada combinación mes × profundidad</span>
-<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Procesando </span><span class="si">{</span><span class="n">mes</span><span class="si">}</span><span class="s2"> a </span><span class="si">{</span><span class="n">prof</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">profundidades</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="n">meses</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;oct&#39;</span><span class="p">,</span> <span class="s1">&#39;nov&#39;</span><span class="p">,</span> <span class="s1">&#39;dic&#39;</span><span class="p">]</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="k">for</span> <span class="n">mes</span> <span class="ow">in</span> <span class="n">meses</span><span class="p">:</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="k">for</span> <span class="n">prof</span> <span class="ow">in</span> <span class="n">profundidades</span><span class="p">:</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>        <span class="c1"># aquí iría la lógica para cada combinación mes × profundidad</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Procesando </span><span class="si">{</span><span class="n">mes</span><span class="si">}</span><span class="s2"> a </span><span class="si">{</span><span class="n">prof</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>Útil cuando se necesita hacer algo para cada combinación de dos listas. Ojo: si cada lista tiene N elementos, el loop interno se ejecuta N² veces. Con listas grandes, conviene pensar si hay una forma vectorizada (NumPy/Pandas) que sea más eficiente.</p>
 <h3 id="comprehension-con-condicion-vs-for-if">Comprehension con condición vs for + if</h3>
 <p>Cuando el objetivo es construir una lista filtrada, la comprehension es más clara:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># for + if (más verboso)</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">superficiales</span> <span class="o">=</span> <span class="p">[]</span>
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">profundidades</span><span class="p">:</span>
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;=</span> <span class="mi">7</span><span class="p">:</span>
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>        <span class="n">superficiales</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
-<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="c1"># comprehension (equivalente, más directo)</span>
-<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="n">superficiales</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">profundidades</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;=</span> <span class="mi">7</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># for + if (más verboso)</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="n">superficiales</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">profundidades</span><span class="p">:</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;=</span> <span class="mi">7</span><span class="p">:</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>        <span class="n">superficiales</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="c1"># comprehension (equivalente, más directo)</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="n">superficiales</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">profundidades</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;=</span> <span class="mi">7</span><span class="p">]</span>
 </code></pre></div>
 <p>La comprehension se lee de corrido: "lista de p, para cada p en profundidades, si p ≤ 7". Úsala cuando la lógica cabe en una línea. Si hay condiciones anidadas o el cuerpo del loop hace varias cosas, el for explícito es más fácil de leer y modificar.</p>
 <h3 id="patron-completo-lectura-filtrado-reporte">Patrón completo: lectura + filtrado + reporte</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">import</span> <span class="nn">os</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="n">carpeta</span> <span class="o">=</span> <span class="s1">&#39;datos/&#39;</span>
-<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="n">resultados</span> <span class="o">=</span> <span class="p">[]</span>
-<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
-<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="k">for</span> <span class="n">archivo</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">carpeta</span><span class="p">):</span>
-<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">archivo</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">):</span>
-<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>        <span class="k">continue</span>   <span class="c1"># saltar archivos que no son CSV</span>
-<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>
-<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>    <span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">carpeta</span><span class="p">,</span> <span class="n">archivo</span><span class="p">))</span>
-<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>        <span class="n">vel_max</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>        <span class="n">resultados</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;archivo&#39;</span><span class="p">:</span> <span class="n">archivo</span><span class="p">,</span> <span class="s1">&#39;vel_max&#39;</span><span class="p">:</span> <span class="n">vel_max</span><span class="p">})</span>
-<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>
-<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ! </span><span class="si">{</span><span class="n">archivo</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>
-<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a><span class="c1"># Ordenar por velocidad máxima</span>
-<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a><span class="n">resultados</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;vel_max&#39;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>
-<a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a><span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">resultados</span><span class="p">:</span>
-<a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;archivo&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">30s</span><span class="si">}</span><span class="s2">  vel_max = </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;vel_max&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> m/s&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kn">import</span> <span class="nn">os</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="n">carpeta</span> <span class="o">=</span> <span class="s1">&#39;datos/&#39;</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="n">resultados</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="k">for</span> <span class="n">archivo</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">carpeta</span><span class="p">):</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">archivo</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">):</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>        <span class="k">continue</span>   <span class="c1"># saltar archivos que no son CSV</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">carpeta</span><span class="p">,</span> <span class="n">archivo</span><span class="p">))</span>
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>        <span class="n">vel_max</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>        <span class="n">resultados</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;archivo&#39;</span><span class="p">:</span> <span class="n">archivo</span><span class="p">,</span> <span class="s1">&#39;vel_max&#39;</span><span class="p">:</span> <span class="n">vel_max</span><span class="p">})</span>
+<a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>
+<a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ! </span><span class="si">{</span><span class="n">archivo</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-23-18" name="__codelineno-23-18" href="#__codelineno-23-18"></a>
+<a id="__codelineno-23-19" name="__codelineno-23-19" href="#__codelineno-23-19"></a><span class="c1"># Ordenar por velocidad máxima</span>
+<a id="__codelineno-23-20" name="__codelineno-23-20" href="#__codelineno-23-20"></a><span class="n">resultados</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;vel_max&#39;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-23-21" name="__codelineno-23-21" href="#__codelineno-23-21"></a>
+<a id="__codelineno-23-22" name="__codelineno-23-22" href="#__codelineno-23-22"></a><span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">resultados</span><span class="p">:</span>
+<a id="__codelineno-23-23" name="__codelineno-23-23" href="#__codelineno-23-23"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;archivo&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">30s</span><span class="si">}</span><span class="s2">  vel_max = </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;vel_max&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> m/s&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>Este patrón — iterar sobre archivos, saltar los irrelevantes, capturar errores, acumular resultados, ordenar y reportar — aparece constantemente en scripts de análisis real.</p>
 

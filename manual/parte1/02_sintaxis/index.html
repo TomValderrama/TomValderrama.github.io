@@ -755,6 +755,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tuplas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuplas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#diccionarios" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -861,6 +872,34 @@
     
   
     Funciones y módulos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04b_debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errores y debugging
   
 
     
@@ -1999,6 +2038,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tuplas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuplas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#diccionarios" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2186,76 +2236,100 @@
 <a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="n">profundidades</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>        <span class="c1"># ordena en lugar</span>
 <a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="nb">sum</span><span class="p">(</span><span class="n">profundidades</span><span class="p">)</span>          <span class="c1"># suma</span>
 </code></pre></div>
+<h2 id="tuplas">Tuplas</h2>
+<p>Las tuplas son secuencias <strong>inmutables</strong>: se definen igual que una lista pero con paréntesis, y no se pueden modificar después de creadas.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">coordenadas</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">31.9</span><span class="p">,</span> <span class="o">-</span><span class="mf">71.5</span><span class="p">)</span>           <span class="c1"># (lat, lon)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">rango</span>       <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>                  <span class="c1"># profundidad mínima y máxima</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">rgb</span>         <span class="o">=</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>           <span class="c1"># color fijo</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># Acceso — igual que lista</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="n">coordenadas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>    <span class="c1"># -31.9</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="n">coordenadas</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1"># -71.5</span>
+</code></pre></div>
+<p><strong>¿Por qué no simplemente usar una lista?</strong> La inmutabilidad comunica intención: si algo es una tupla, el lector del código sabe que ese valor no va a cambiar. También tienen otro uso frecuente: las funciones que devuelven múltiples valores en Python devuelven una tupla.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">def</span> <span class="nf">estadisticas</span><span class="p">(</span><span class="n">datos</span><span class="p">):</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">datos</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">datos</span><span class="p">)</span>   <span class="c1"># devuelve tupla</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">media</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">estadisticas</span><span class="p">(</span><span class="n">vel</span><span class="p">)</span>   <span class="c1"># desempaquetado automático</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Diferencia clave con lista</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">lista</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">lista</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span>       <span class="c1"># OK — las listas son mutables</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="n">tupla</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="n">tupla</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span>       <span class="c1"># TypeError: &#39;tuple&#39; object does not support item assignment</span>
+</code></pre></div>
+<p>Se usa para: coordenadas geográficas, rangos fijos de profundidad o tiempo, pares clave-valor, y cualquier conjunto de valores relacionados que no deba cambiar.</p>
 <h2 id="diccionarios">Diccionarios</h2>
 <p>Los diccionarios almacenan pares clave-valor. Son muy usados para configuración:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="s2">&quot;empresa&quot;</span><span class="p">:</span> <span class="s2">&quot;Compas Marine&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="s2">&quot;centro&quot;</span><span class="p">:</span>  <span class="s2">&quot;Los Vilos&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="s2">&quot;lat&quot;</span><span class="p">:</span>     <span class="o">-</span><span class="mf">31.9</span><span class="p">,</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="s2">&quot;lon&quot;</span><span class="p">:</span>     <span class="o">-</span><span class="mf">71.5</span><span class="p">,</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="s2">&quot;prof_max&quot;</span><span class="p">:</span> <span class="mi">23</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">}</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="c1"># Acceso</span>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="n">config</span><span class="p">[</span><span class="s2">&quot;empresa&quot;</span><span class="p">]</span>          <span class="c1"># &quot;Compas Marine&quot;</span>
-<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lat&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>    <span class="c1"># -31.9 (con valor por defecto si no existe)</span>
-<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
-<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="c1"># Modificar</span>
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="n">config</span><span class="p">[</span><span class="s2">&quot;prof_max&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">25</span>
-<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
-<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="c1"># Iterar</span>
-<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="k">for</span> <span class="n">clave</span><span class="p">,</span> <span class="n">valor</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">clave</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">valor</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="s2">&quot;empresa&quot;</span><span class="p">:</span> <span class="s2">&quot;Compas Marine&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="s2">&quot;centro&quot;</span><span class="p">:</span>  <span class="s2">&quot;Los Vilos&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="s2">&quot;lat&quot;</span><span class="p">:</span>     <span class="o">-</span><span class="mf">31.9</span><span class="p">,</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="s2">&quot;lon&quot;</span><span class="p">:</span>     <span class="o">-</span><span class="mf">71.5</span><span class="p">,</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="s2">&quot;prof_max&quot;</span><span class="p">:</span> <span class="mi">23</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">}</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="c1"># Acceso</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="n">config</span><span class="p">[</span><span class="s2">&quot;empresa&quot;</span><span class="p">]</span>          <span class="c1"># &quot;Compas Marine&quot;</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lat&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>    <span class="c1"># -31.9 (con valor por defecto si no existe)</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="c1"># Modificar</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="n">config</span><span class="p">[</span><span class="s2">&quot;prof_max&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">25</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="c1"># Iterar</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="k">for</span> <span class="n">clave</span><span class="p">,</span> <span class="n">valor</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">clave</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">valor</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="indentacion">Indentación</h2>
 <p>Python usa la indentación (4 espacios) para delimitar bloques. No hay llaves ni <code>end</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Correcto</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">if</span> <span class="n">velocidad</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Velocidad alta&quot;</span><span class="p">)</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Revisar datos&quot;</span><span class="p">)</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1"># Error — la indentación inconsistente produce IndentationError</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="k">if</span> <span class="n">velocidad</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Velocidad alta&quot;</span><span class="p">)</span>   <span class="c1"># ← falta indentación</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Correcto</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">if</span> <span class="n">velocidad</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Velocidad alta&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Revisar datos&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="c1"># Error — la indentación inconsistente produce IndentationError</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="k">if</span> <span class="n">velocidad</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Velocidad alta&quot;</span><span class="p">)</span>   <span class="c1"># ← falta indentación</span>
 </code></pre></div>
 <h2 id="comentarios">Comentarios</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Comentario de una línea</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">velocidad_max</span> <span class="o">=</span> <span class="mf">0.6</span>  <span class="c1"># m/s — comentario al final de línea</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="sd">&quot;&quot;&quot;</span>
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="sd">Comentario de</span>
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="sd">múltiples líneas</span>
-<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="sd">(también se usa como docstring de funciones)</span>
-<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="sd">&quot;&quot;&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Comentario de una línea</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="n">velocidad_max</span> <span class="o">=</span> <span class="mf">0.6</span>  <span class="c1"># m/s — comentario al final de línea</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="sd">Comentario de</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="sd">múltiples líneas</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="sd">(también se usa como docstring de funciones)</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="sd">&quot;&quot;&quot;</span>
 </code></pre></div>
 <h2 id="operadores">Operadores</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Aritméticos</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span>     <span class="c1"># 5</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="mi">10</span> <span class="o">/</span> <span class="mi">3</span>    <span class="c1"># 3.333...</span>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="mi">10</span> <span class="o">//</span> <span class="mi">3</span>   <span class="c1"># 3 (división entera)</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="mi">10</span> <span class="o">%</span> <span class="mi">3</span>    <span class="c1"># 1 (módulo / resto)</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="mi">2</span> <span class="o">**</span> <span class="mi">3</span>    <span class="c1"># 8 (potencia)</span>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1"># Comparación</span>
-<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="mi">5</span> <span class="o">&gt;</span> <span class="mi">3</span>     <span class="c1"># True</span>
-<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="mi">5</span> <span class="o">==</span> <span class="mi">5</span>    <span class="c1"># True (igualdad, no asignación)</span>
-<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="mi">5</span> <span class="o">!=</span> <span class="mi">4</span>    <span class="c1"># True</span>
-<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>
-<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="c1"># Lógicos</span>
-<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="kc">True</span> <span class="ow">and</span> <span class="kc">False</span>   <span class="c1"># False</span>
-<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="kc">True</span> <span class="ow">or</span> <span class="kc">False</span>    <span class="c1"># True</span>
-<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="ow">not</span> <span class="kc">True</span>         <span class="c1"># False</span>
-<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>
-<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="c1"># Útil con pandas: operadores por elemento</span>
-<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="n">velocidad</span> <span class="o">&gt;</span> <span class="mf">0.1</span>          <span class="c1"># Series de booleanos</span>
-<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="p">(</span><span class="n">vel</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nb">dir</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">)</span> <span class="c1"># AND elemento a elemento</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Aritméticos</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span>     <span class="c1"># 5</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="mi">10</span> <span class="o">/</span> <span class="mi">3</span>    <span class="c1"># 3.333...</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="mi">10</span> <span class="o">//</span> <span class="mi">3</span>   <span class="c1"># 3 (división entera)</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="mi">10</span> <span class="o">%</span> <span class="mi">3</span>    <span class="c1"># 1 (módulo / resto)</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="mi">2</span> <span class="o">**</span> <span class="mi">3</span>    <span class="c1"># 8 (potencia)</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="c1"># Comparación</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="mi">5</span> <span class="o">&gt;</span> <span class="mi">3</span>     <span class="c1"># True</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="mi">5</span> <span class="o">==</span> <span class="mi">5</span>    <span class="c1"># True (igualdad, no asignación)</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="mi">5</span> <span class="o">!=</span> <span class="mi">4</span>    <span class="c1"># True</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="c1"># Lógicos</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="kc">True</span> <span class="ow">and</span> <span class="kc">False</span>   <span class="c1"># False</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="kc">True</span> <span class="ow">or</span> <span class="kc">False</span>    <span class="c1"># True</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="ow">not</span> <span class="kc">True</span>         <span class="c1"># False</span>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="c1"># Útil con pandas: operadores por elemento</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a><span class="n">velocidad</span> <span class="o">&gt;</span> <span class="mf">0.1</span>          <span class="c1"># Series de booleanos</span>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="p">(</span><span class="n">vel</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nb">dir</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">)</span> <span class="c1"># AND elemento a elemento</span>
 </code></pre></div>
 <h2 id="conversion-de-tipos">Conversión de tipos</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;23&quot;</span><span class="p">)</span>        <span class="c1"># 23</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;3.5&quot;</span><span class="p">)</span>     <span class="c1"># 3.5</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="nb">str</span><span class="p">(</span><span class="mi">186</span><span class="p">)</span>         <span class="c1"># &quot;186&quot;</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nb">list</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># [1, 2, 3]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;23&quot;</span><span class="p">)</span>        <span class="c1"># 23</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;3.5&quot;</span><span class="p">)</span>     <span class="c1"># 3.5</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nb">str</span><span class="p">(</span><span class="mi">186</span><span class="p">)</span>         <span class="c1"># &quot;186&quot;</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nb">list</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># [1, 2, 3]</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Error frecuente</p>

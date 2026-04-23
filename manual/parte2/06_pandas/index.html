@@ -651,6 +651,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte1/04b_debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errores y debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -943,8 +971,41 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#groupby-con-multiples-agregaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        groupby con múltiples agregaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rolling-ventana-deslizante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rolling — ventana deslizante
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pdcut-crear-intervalos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pd.cut — crear intervalos
+      
+    </span>
+  </a>
   
 </li>
       
@@ -967,6 +1028,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="merge y concat — combinar DataFrames">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concat-apilar-filas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        concat — apilar filas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge-combinar-por-columna-comun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        merge — combinar por columna común
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2028,8 +2117,41 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#groupby-con-multiples-agregaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        groupby con múltiples agregaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rolling-ventana-deslizante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rolling — ventana deslizante
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pdcut-crear-intervalos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pd.cut — crear intervalos
+      
+    </span>
+  </a>
   
 </li>
       
@@ -2052,6 +2174,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="merge y concat — combinar DataFrames">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concat-apilar-filas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        concat — apilar filas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge-combinar-por-columna-comun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        merge — combinar por columna común
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2242,43 +2392,127 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">patron_diurno</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span><span class="p">)[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">patron_diurno</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;hora&#39;</span>
 </code></pre></div>
+<h3 id="groupby-con-multiples-agregaciones">groupby con múltiples agregaciones</h3>
+<p>Cuando se necesita calcular varias estadísticas a la vez, <code>agg</code> acepta un diccionario con nombre de salida y función:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">resumen</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;profundidad&#39;</span><span class="p">)[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="n">media</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">maxima</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="n">p95</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.95</span><span class="p">),</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="n">n_datos</span><span class="o">=</span><span class="s1">&#39;count&#39;</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">)</span>
+</code></pre></div>
+<p>Esto devuelve un DataFrame con una columna por estadística, nombrada explícitamente — más claro que encadenar varias llamadas separadas.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Agrupar por dos columnas a la vez</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;profundidad&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">])[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># → media por cada combinación (profundidad, mes)</span>
+</code></pre></div>
+<h2 id="rolling-ventana-deslizante">Rolling — ventana deslizante</h2>
+<p><code>rolling</code> aplica una función sobre una ventana móvil de N filas. Es la forma estándar de suavizar series temporales y calcular estadísticas en un intervalo de tiempo deslizante.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Suavizado: media móvil de 1 hora (datos cada 10 min → ventana de 6 puntos)</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;vel_suavizada&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># La ventana es centrada por defecto hacia atrás:</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1"># el valor en t es la media de [t-5, t-4, t-3, t-2, t-1, t]</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="c1"># Las primeras N-1 filas serán NaN porque no hay suficientes datos previos</span>
+</code></pre></div>
+<p>Con series temporales de frecuencia regular, es más claro usar el tamaño de ventana en tiempo:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;vel_suavizada&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="s1">&#39;1h&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>    <span class="c1"># media de 1 hora</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;vel_suavizada&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="s1">&#39;6h&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>    <span class="c1"># media de 6 horas</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;std_movil&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="s1">&#39;1D&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>     <span class="c1"># std diaria móvil</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Percentil 95 móvil — más pesado pero válido</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;p95_movil&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="s1">&#39;7D&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.95</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Cuándo suavizar</p>
+<p>Los datos de ADCP tienen ruido acústico y efectos de ondas superficiales. Una media móvil de 10–60 minutos elimina variabilidad de alta frecuencia sin afectar la señal de corriente. No suavizar antes de hacer estadísticas mensuales — eso puede sesgar los resultados.</p>
+</div>
+<h2 id="pdcut-crear-intervalos">pd.cut — crear intervalos</h2>
+<p><code>pd.cut</code> divide una columna continua en intervalos (bins) y asigna una etiqueta a cada valor. Se usa para construir tablas de incidencia (velocidad × dirección) y estadísticas por rango de profundidad.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Crear intervalos de velocidad: 0-0.1, 0.1-0.25, 0.25-0.5, 0.5-1.0 m/s</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">bins</span>   <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;calma&#39;</span><span class="p">,</span> <span class="s1">&#39;leve&#39;</span><span class="p">,</span> <span class="s1">&#39;moderada&#39;</span><span class="p">,</span> <span class="s1">&#39;fuerte&#39;</span><span class="p">]</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;intervalo_vel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Número de intervalos iguales — pandas elige los límites automáticamente</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;quintil_vel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="c1"># pd.qcut — misma cantidad de datos en cada intervalo (cuantiles)</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;cuartil_vel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">],</span> <span class="n">q</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Q1&#39;</span><span class="p">,</span><span class="s1">&#39;Q2&#39;</span><span class="p">,</span><span class="s1">&#39;Q3&#39;</span><span class="p">,</span><span class="s1">&#39;Q4&#39;</span><span class="p">])</span>
+</code></pre></div>
+<p>Una vez que cada dato tiene su etiqueta de intervalo, se puede agrupar:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;intervalo_vel&#39;</span><span class="p">)[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>   <span class="c1"># frecuencia por intervalo</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;intervalo_vel&#39;</span><span class="p">)[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>    <span class="c1"># media dentro de cada rango</span>
+</code></pre></div>
 <h2 id="pivot_table-tabla-de-frecuencias">pivot_table — tabla de frecuencias</h2>
 <p>Las tablas de incidencia (velocidad × dirección) del informe se generan con pivot_table:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Tabla de frecuencia: velocidad × dirección</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">tabla</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">df</span><span class="p">,</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="n">values</span><span class="o">=</span><span class="s1">&#39;velocidad&#39;</span><span class="p">,</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="n">index</span><span class="o">=</span><span class="s1">&#39;intervalo_vel&#39;</span><span class="p">,</span>
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;octante&#39;</span><span class="p">,</span>
-<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span>
-<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span>
-<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="p">)</span>
-<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
-<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="c1"># Normalizar a porcentaje</span>
-<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="n">tabla_pct</span> <span class="o">=</span> <span class="n">tabla</span> <span class="o">/</span> <span class="n">tabla</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Tabla de frecuencia: velocidad × dirección</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="n">tabla</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    <span class="n">df</span><span class="p">,</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="n">values</span><span class="o">=</span><span class="s1">&#39;velocidad&#39;</span><span class="p">,</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>    <span class="n">index</span><span class="o">=</span><span class="s1">&#39;intervalo_vel&#39;</span><span class="p">,</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;octante&#39;</span><span class="p">,</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>    <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>    <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="p">)</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="c1"># Normalizar a porcentaje</span>
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="n">tabla_pct</span> <span class="o">=</span> <span class="n">tabla</span> <span class="o">/</span> <span class="n">tabla</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
 </code></pre></div>
 <h2 id="merge-y-concat-combinar-dataframes">merge y concat — combinar DataFrames</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Concatenar DataFrames con la misma estructura (unir registros)</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">df_total</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_septiembre</span><span class="p">,</span> <span class="n">df_octubre</span><span class="p">,</span> <span class="n">df_noviembre</span><span class="p">])</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Merge por columna común (equivalente a JOIN de SQL)</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_corrientes</span><span class="p">,</span> <span class="n">df_oleaje</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tiempo&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<h3 id="concat-apilar-filas">concat — apilar filas</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Misma estructura, distintos períodos — apilar verticalmente</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="n">df_total</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_septiembre</span><span class="p">,</span> <span class="n">df_octubre</span><span class="p">,</span> <span class="n">df_noviembre</span><span class="p">])</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># Si los índices originales se repiten, resetear</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="n">df_total</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_sep</span><span class="p">,</span> <span class="n">df_oct</span><span class="p">,</span> <span class="n">df_nov</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="c1"># Para saber de qué DataFrame vino cada fila</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="n">df_total</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>    <span class="p">[</span><span class="n">df_sep</span><span class="p">,</span> <span class="n">df_oct</span><span class="p">,</span> <span class="n">df_nov</span><span class="p">],</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>    <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sep&#39;</span><span class="p">,</span> <span class="s1">&#39;oct&#39;</span><span class="p">,</span> <span class="s1">&#39;nov&#39;</span><span class="p">]</span>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="p">)</span>
 </code></pre></div>
+<h3 id="merge-combinar-por-columna-comun">merge — combinar por columna común</h3>
+<p><code>merge</code> une dos DataFrames que comparten una columna clave. El parámetro <code>how</code> controla qué filas se conservan cuando no hay match:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># inner (default): solo las filas que existen en ambos</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_corrientes</span><span class="p">,</span> <span class="n">df_oleaje</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tiempo&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># left: todas las filas de df_corrientes, NaN donde no hay oleaje</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_corrientes</span><span class="p">,</span> <span class="n">df_oleaje</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tiempo&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="c1"># outer: todas las filas de ambos, NaN donde falta alguno</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_corrientes</span><span class="p">,</span> <span class="n">df_oleaje</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tiempo&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>df_corrientes    df_oleaje        inner merge       left merge
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>─────────────    ──────────       ────────────      ──────────
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>tiempo  vel      tiempo  Hm0      tiempo  vel  Hm0  tiempo  vel  Hm0
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>10:00   0.3      10:00   1.2      10:00   0.3  1.2  10:00   0.3  1.2
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>10:10   0.4      10:20   0.8      10:20   0.5  0.8  10:10   0.4  NaN
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>10:20   0.5                                         10:20   0.5  0.8
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Si las columnas clave tienen distinto nombre</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_corrientes</span><span class="p">,</span> <span class="n">df_viento</span><span class="p">,</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>              <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;tiempo_adcp&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;tiempo_boya&#39;</span><span class="p">,</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>              <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Regla práctica</strong>: usar <code>left</code> cuando el DataFrame izquierdo es el principal y el derecho agrega información complementaria que puede no estar para todos los instantes. Usar <code>inner</code> cuando solo interesan los instantes donde hay datos de ambos instrumentos.</p>
 <h2 id="manejar-nan">Manejar NaN</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>                          <span class="c1"># eliminar filas con cualquier NaN</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">])</span>      <span class="c1"># solo si velocidad es NaN</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                         <span class="c1"># rellenar con 0</span>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">interpolate</span><span class="p">()</span>        <span class="c1"># interpolación lineal</span>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="n">df</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span>                           <span class="c1"># propagar último valor válido hacia adelante</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>                          <span class="c1"># eliminar filas con cualquier NaN</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">])</span>      <span class="c1"># solo si velocidad es NaN</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                         <span class="c1"># rellenar con 0</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">interpolate</span><span class="p">()</span>        <span class="c1"># interpolación lineal</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="n">df</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span>                           <span class="c1"># propagar último valor válido hacia adelante</span>
 </code></pre></div>
 <h2 id="leer-y-guardar-datos">Leer y guardar datos</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Leer</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;corrientes.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tiempo&#39;</span><span class="p">])</span>
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;corrientes.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;VELOCIDAD&#39;</span><span class="p">)</span>
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="c1"># Guardar</span>
-<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;resultado.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s1">&#39;resultado.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;Datos&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Leer</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;corrientes.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tiempo&#39;</span><span class="p">])</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;corrientes.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;VELOCIDAD&#39;</span><span class="p">)</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="c1"># Guardar</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;resultado.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s1">&#39;resultado.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;Datos&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Variable Explorer en Spyder</p>

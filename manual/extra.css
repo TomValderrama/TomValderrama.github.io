@@ -1,4 +1,4 @@
-/* Navegación: tabs con scroll horizontal cuando hay muchas secciones */
+/* Navegación: tabs con scroll horizontal estilo carrusel */
 .md-tabs {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -11,6 +11,7 @@
 
 .md-tabs .md-grid {
   max-width: none;
+  width: max-content;
 }
 
 .md-tabs__list {

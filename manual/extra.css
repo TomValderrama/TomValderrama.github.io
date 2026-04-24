@@ -1,19 +1,17 @@
 /* Navegación: tabs con scroll horizontal estilo carrusel */
-.md-tabs {
+.md-tabs .md-grid {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  max-width: 100%;
+  padding: 0;
 }
 
-.md-tabs::-webkit-scrollbar {
+.md-tabs .md-grid::-webkit-scrollbar {
   display: none;
-}
-
-.md-tabs .md-grid {
-  max-width: none;
-  width: max-content;
 }
 
 .md-tabs__list {
   flex-wrap: nowrap;
+  width: max-content;
 }
